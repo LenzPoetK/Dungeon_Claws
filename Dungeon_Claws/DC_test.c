@@ -20,6 +20,7 @@ Ctrl + Alt + N = compila e executa o código.
 void game_title();
 void introduction_text();
 int first_map();
+int second_map();
 
 //----------------------------MAIN------------------------------------
 int main()
@@ -30,8 +31,7 @@ int main()
 	int loop = 1;
 	int i;
 
-	//introduction_text();
-	//first_map();
+	second_map();
 
     // game_title();
 
@@ -328,145 +328,189 @@ int first_map(){
 }
 
 //mapa 2.
-// int second_map(){
+int second_map(){
 
-// 	struct monster monster;
-// 	struct player player;
+	struct monster monster;
+	struct player player;
 
-// 	while(mapa[player.coord_y][player.coord_x] != '='){
+	player.coord_y = 1; monster.coord_y = 16;
+	player.coord_x = 2; monster.coord_x = 12;
+	int x, y;
+	int HP = 3;
 
-// 			system("cls");
+	char mapa[30][30] = {{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '#', '#', ' ', ' ', '#', '#', '*', '*', '*', '*', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '*'},
+                         {'*', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '*', '*', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'D', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'V', '*', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '*', '*', ' ', ' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '*', '*', '*'},
+                         {'*', ' ', ' ', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '@', '*', '*'},
+                         {'*', ' ', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '*', '*', '*'},
+                         {'*', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
+                         {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'}};
 
-//             for(y = 0; y < 15; y++){
-// 				  for(x = 0; x < 15; x++){
-// 		  		       if(x == player.coord_x && y == player.coord_y){		
-// 				  	   printf("  &");
-// 			           } else if (x == monster.coord_x && y == monster.coord_y) {
-// 	  		 		   	 	printf("  X");
-//  	          		     } else {
-// 							printf("  %c", mapa[y][x]);
-// 						 }
 
-// 	              }
-// 				   printf("\n\n");
-//             }
-// //----------------------------------------------MONSTRO----------------------------------------------------------------------------------
+	while(mapa[player.coord_y][player.coord_x] != '='){
 
-// 			monster.movement_keys = rand() % 4;
+			system("cls");
+
+            for(y = 0; y < 30; y++){
+				  for(x = 0; x < 30; x++){
+		  		       if(x == player.coord_x && y == player.coord_y){		
+				  	   printf("  &");
+			           } else if (x == monster.coord_x && y == monster.coord_y) {
+	  		 		   	 	printf("  V");
+ 	          		     } else {
+							printf("  %c", mapa[y][x]);
+						 }
+
+	              }
+				   printf("\n\n");
+            }
+//----------------------------------------------MONSTRO----------------------------------------------------------------------------------
+
+			monster.movement_keys = rand() % 4;
 		
-// 		    switch(monster.movement_keys){
+		    switch(monster.movement_keys){
 
-// 				  case 0:
-// 				  	if(mapa[monster.coord_y-1][monster.coord_x] != '*' && mapa[monster.coord_y-1][monster.coord_x] != 'D' && mapa[monster.coord_y-1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
-// 							monster.coord_y--;
-// 						}
-// 				  break;
+				  case 0:
+				  	if(mapa[monster.coord_y-1][monster.coord_x] != '*' && mapa[monster.coord_y-1][monster.coord_x] != 'D' && mapa[monster.coord_y-1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
+							monster.coord_y--;
+						}
+				  break;
 				  
-// 				  case 1:
-// 				  	if(mapa[monster.coord_y+1][monster.coord_x] != '*' && mapa[monster.coord_y+1][monster.coord_x] != 'D' && mapa[monster.coord_y+1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){							
-// 							monster.coord_y++;
-// 						}
-// 				  break;
+				  case 1:
+				  	if(mapa[monster.coord_y+1][monster.coord_x] != '*' && mapa[monster.coord_y+1][monster.coord_x] != 'D' && mapa[monster.coord_y+1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){							
+							monster.coord_y++;
+						}
+				  break;
 				  
-// 				  case 2:
-// 				  	if(mapa[monster.coord_y][monster.coord_x+1] != '*' && mapa[monster.coord_y][monster.coord_x+1] != 'D' && mapa[monster.coord_y][monster.coord_x+1] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
-// 							monster.coord_x++;
-// 						}
-// 				  break;
+				  case 2:
+				  	if(mapa[monster.coord_y][monster.coord_x+1] != '*' && mapa[monster.coord_y][monster.coord_x+1] != 'D' && mapa[monster.coord_y][monster.coord_x+1] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
+							monster.coord_x++;
+						}
+				  break;
 				  
-// 				  case 3:
-// 				  	if(mapa[monster.coord_y][monster.coord_x-1] != '*' && mapa[monster.coord_y][monster.coord_x-1] != 'D' && mapa[monster.coord_y][monster.coord_x-1] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
-// 							monster.coord_x--;
-// 						}
-// 				  break;
+				  case 3:
+				  	if(mapa[monster.coord_y][monster.coord_x-1] != '*' && mapa[monster.coord_y][monster.coord_x-1] != 'D' && mapa[monster.coord_y][monster.coord_x-1] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
+							monster.coord_x--;
+						}
+				  break;
 
-// 		 	}
+		 	}
 
-// 			//----------------------------------------PLAYER------------------------------------------------------------
+			//----------------------------------------PLAYER------------------------------------------------------------
             
-// 		    player.movement_keys = toupper(getch());
+		    player.movement_keys = toupper(getch());
 		
-// 		    switch(player.movement_keys){
+		    switch(player.movement_keys){
 
-// 				  case 'W':
-// 				  	if(mapa[player.coord_y-1][player.coord_x] != '*' && mapa[player.coord_y-1][player.coord_x] != 'D'){
-// 						if(mapa[player.coord_y-1][player.coord_x] == '#' || player.coord_y-1 == monster.coord_y && player.coord_x == monster.coord_x){
-// 							player.coord_x = 1, player.coord_y = 1;
-// 							HP--;
-// 						} else {
-// 							player.coord_y--;
-// 						}
-// 					}
-// 				  break;
+				  case 'W':
+				  	if(mapa[player.coord_y-1][player.coord_x] != '*' && mapa[player.coord_y-1][player.coord_x] != 'D'){
+						if(mapa[player.coord_y-1][player.coord_x] == '#' || player.coord_y-1 == monster.coord_y && player.coord_x == monster.coord_x){
+							player.coord_x = 1, player.coord_y = 1;
+							HP--;
+						} else {
+							player.coord_y--;
+						}
+					}
+				  break;
 				  
-// 				  case 'S':
-// 				  	if(mapa[player.coord_y+1][player.coord_x] != '*' && mapa[player.coord_y+1][player.coord_x] != 'D'){
-// 				  		if(mapa[player.coord_y+1][player.coord_x] == '#' || player.coord_y+1 == monster.coord_y && player.coord_x == monster.coord_x){
-// 							player.coord_x = 1, player.coord_y = 1;
-// 							HP--;							
-// 						} else {
-// 							player.coord_y++;
-// 						}
-// 					  }
-// 				  break;
+				  case 'S':
+				  	if(mapa[player.coord_y+1][player.coord_x] != '*' && mapa[player.coord_y+1][player.coord_x] != 'D'){
+				  		if(mapa[player.coord_y+1][player.coord_x] == '#' || player.coord_y+1 == monster.coord_y && player.coord_x == monster.coord_x){
+							player.coord_x = 1, player.coord_y = 1;
+							HP--;							
+						} else {
+							player.coord_y++;
+						}
+					  }
+				  break;
 				  
-// 				  case 'D':
-// 				  	if(mapa[player.coord_y][player.coord_x+1] != '*' && mapa[player.coord_y][player.coord_x+1] != 'D'){
-// 				  		if(mapa[player.coord_y][player.coord_x+1] == '#' || player.coord_y == monster.coord_y && player.coord_x+1 == monster.coord_x){
-// 							player.coord_x = 1, player.coord_y = 1;
-// 							HP--;
-// 						} else {
-// 							player.coord_x++;
-// 						}
-// 					  }
-// 				  break;
+				  case 'D':
+				  	if(mapa[player.coord_y][player.coord_x+1] != '*' && mapa[player.coord_y][player.coord_x+1] != 'D'){
+				  		if(mapa[player.coord_y][player.coord_x+1] == '#' || player.coord_y == monster.coord_y && player.coord_x+1 == monster.coord_x){
+							player.coord_x = 1, player.coord_y = 1;
+							HP--;
+						} else {
+							player.coord_x++;
+						}
+					  }
+				  break;
 				  
-// 				  case 'A':
-// 				  	if(mapa[player.coord_y][player.coord_x-1] != '*' && mapa[player.coord_y][player.coord_x-1] != 'D'){
-// 				  		if(mapa[player.coord_y][player.coord_x-1] == '#' || player.coord_y == monster.coord_y && player.coord_x-1 == monster.coord_x){
-// 							player.coord_x = 1, player.coord_y = 1;
-// 							HP--;
-// 						} else {
-// 							player.coord_x--;
-// 						}
-// 					  }
-// 				  break;
+				  case 'A':
+				  	if(mapa[player.coord_y][player.coord_x-1] != '*' && mapa[player.coord_y][player.coord_x-1] != 'D'){
+				  		if(mapa[player.coord_y][player.coord_x-1] == '#' || player.coord_y == monster.coord_y && player.coord_x-1 == monster.coord_x){
+							player.coord_x = 1, player.coord_y = 1;
+							HP--;
+						} else {
+							player.coord_x--;
+						}
+					  }
+				  break;
 
-// 				  case 'I':
-//				  	if(mapa[player.coord_y][player.coord_x] == '@'){
-//						mapa[8][3] = ' ';
-//						mapa[14][5] = '=';
-//					} else if(mapa[player.coord_y][player.coord_x] == 'o'){
-//						mapa[][] = ' ';
-//					} else{
-//						mapa[player.coord_y][player.coord_x];
-//					}
-//				  break;			
-// 		 	}
+				  case 'I':
+				  	if(mapa[player.coord_y][player.coord_x] == '@'){
+						mapa[26][27] = ' ';
+						mapa[16][0] = '=';
+					} else if(mapa[player.coord_y][player.coord_x] == 'o'){
+						mapa[27][26] = ' ';
+						mapa[26][26] = ' ';
+						mapa[25][26] = ' ';
+						mapa[27][28] = ' ';
+						mapa[26][28] = ' ';
+						mapa[25][28] = ' ';
+						mapa[27][27] = ' ';
+						mapa[25][27] = ' ';
+					} else{
+						mapa[player.coord_y][player.coord_x];
+					}
+				  break;			
+		 	}
 
-// 			if(HP == 0){
-// 				system("cls");
-// 				printf("GAME OVER\n\n");
-// 				printf(">> Press any key to try again <<");
-// 				getch();
-// 				HP = 3;
+			if(HP == 0){
+				system("cls");
+				printf("GAME OVER\n\n");
+				printf(">> Press any key to try again <<");
+				getch();
+				HP = 3;
 				
-// 				if(mapa[14][5] == '='){
-// 					if(mapa[8][3] == ' '){
-// 						mapa[8][3] = '@';
-// 						mapa[14][5] = 'D';
-// 						monster.coord_y = 11; monster.coord_x = 5;
-// 					}
-// 				}
-// 				continue;
-// 			}
-// 	}
+				if(mapa[16][0] == '='){
+					if(mapa[26][27] == ' '){
+						mapa[26][27] = '@';
+						mapa[16][0] = 'D';
+						monster.coord_y = 16; monster.coord_x = 12;
+					}
+				}
+				continue;
+			}
+	}
 
-// 	system("cls");
-// 	printf("LEVEL 2 COMPLETED\n\n");
-// 	printf("CONGRATULATIONS!!!!!");
-// 	getch();
+	system("cls");
+	printf("LEVEL 2 COMPLETED\n\n");
+	printf("CONGRATULATIONS!!!!!");
+	getch();
 
 
-// 	return 0;
-// }
+	return 0;
+}
