@@ -334,7 +334,7 @@ int second_map(){
 	struct player player;
 
 	player.coord_y = 1; monster.coord_y = 16;
-	player.coord_x = 2; monster.coord_x = 12;
+	player.coord_x = 1; monster.coord_x = 12;
 	int x, y;
 	int HP = 3;
 
@@ -394,20 +394,40 @@ int second_map(){
 				if (mapa[monster.coord_y][monster.coord_x-1] != '*' && mapa[monster.coord_y][monster.coord_x-1] != '#' && mapa[monster.coord_y][monster.coord_x-1] != 'D')
 					monster.coord_x -= 1;
 
+				if (monster.coord_x == player.coord_x && monster.coord_y == player.coord_y){
+					player.coord_x = 1, player.coord_y = 1;
+					HP--;
+				}
+
 			} else if (monster.coord_x < player.coord_x && abs(monster.coord_x-player.coord_x) >= abs(monster.coord_y-player.coord_y)){
 
 				if (mapa[monster.coord_y][monster.coord_x+1] != '*' && mapa[monster.coord_y][monster.coord_x+1] != '#' && mapa[monster.coord_y][monster.coord_x+1] != 'D')
 					monster.coord_x += 1;
+
+				if (monster.coord_x == player.coord_x && monster.coord_y == player.coord_y){
+					player.coord_x = 1, player.coord_y = 1;
+					HP--;
+				}
 
 			} else if (monster.coord_y > player.coord_y && abs(monster.coord_y-player.coord_y) >= abs(monster.coord_x-player.coord_x)){
 
 				if (mapa[monster.coord_y-1][monster.coord_x] != '*' && mapa[monster.coord_y-1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != 'D')
 					monster.coord_y -= 1;
 
+				if (monster.coord_x == player.coord_x && monster.coord_y == player.coord_y){
+					player.coord_x = 1, player.coord_y = 1;
+					HP--;
+				}
+
 			} else if (monster.coord_y < player.coord_y && abs(monster.coord_y-player.coord_y) >= abs(monster.coord_x-player.coord_x)){
 
 				if (mapa[monster.coord_y+1][monster.coord_x] != '*' && mapa[monster.coord_y+1][monster.coord_x] != '#' && mapa[monster.coord_y+1][monster.coord_x] != 'D')
 					monster.coord_y += 1;
+
+				if (monster.coord_x == player.coord_x && monster.coord_y == player.coord_y){
+					player.coord_x = 1, player.coord_y = 1;
+					HP--;
+				}
 			}
 
 			//----------------------------------------PLAYER------------------------------------------------------------
@@ -418,7 +438,7 @@ int second_map(){
 
 				  case 'W':
 				  	if(mapa[player.coord_y-1][player.coord_x] != '*' && mapa[player.coord_y-1][player.coord_x] != 'D'){
-						if(mapa[player.coord_y-1][player.coord_x] == '#' || player.coord_y-1 == monster.coord_y && player.coord_x == monster.coord_x){
+						if(mapa[player.coord_y-1][player.coord_x] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
 							HP--;
 						} else {
@@ -429,7 +449,7 @@ int second_map(){
 				  
 				  case 'S':
 				  	if(mapa[player.coord_y+1][player.coord_x] != '*' && mapa[player.coord_y+1][player.coord_x] != 'D'){
-				  		if(mapa[player.coord_y+1][player.coord_x] == '#' || player.coord_y+1 == monster.coord_y && player.coord_x == monster.coord_x){
+				  		if(mapa[player.coord_y+1][player.coord_x] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
 							HP--;							
 						} else {
@@ -440,7 +460,7 @@ int second_map(){
 				  
 				  case 'D':
 				  	if(mapa[player.coord_y][player.coord_x+1] != '*' && mapa[player.coord_y][player.coord_x+1] != 'D'){
-				  		if(mapa[player.coord_y][player.coord_x+1] == '#' || player.coord_y == monster.coord_y && player.coord_x+1 == monster.coord_x){
+				  		if(mapa[player.coord_y][player.coord_x+1] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
 							HP--;
 						} else {
@@ -451,7 +471,7 @@ int second_map(){
 				  
 				  case 'A':
 				  	if(mapa[player.coord_y][player.coord_x-1] != '*' && mapa[player.coord_y][player.coord_x-1] != 'D'){
-				  		if(mapa[player.coord_y][player.coord_x-1] == '#' || player.coord_y == monster.coord_y && player.coord_x-1 == monster.coord_x){
+				  		if(mapa[player.coord_y][player.coord_x-1] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
 							HP--;
 						} else {
