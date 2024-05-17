@@ -8,41 +8,46 @@
 #include "struct_test.c"
 
 /*
-ATALHOS ï¿½TEIS:
+ATALHOS ÚTEIS:
 
-Alt + setinha = move blocos de cï¿½digo.
+Alt + setinha = move blocos de código.
 shift + alt + setinha = duplicar uma linha.
-Ctrl + d = seleciona vï¿½rias palavras iguais para serem mudadas ao mesmo tempo.
-Ctrl + ; = comenta um bloco de cï¿½digo.
-Ctrl + Alt + N = compila e executa o cï¿½digo.
+Ctrl + d = seleciona várias palavras iguais para serem mudadas ao mesmo tempo.
+Ctrl + ; = comenta um bloco de código.
+Ctrl + Alt + N = compila e executa o código.
 */
 
 void game_title();
 void introduction_text();
-int first_map();
-int second_map();
+void first_map();
+void second_map();
 
 //----------------------------MAIN------------------------------------
 int main()
 {	
+	struct game_text level1_completed;
+
+	strcpy(level1_completed.text, "LEVEL 1 COMPLETED");
+	level1_completed.length = strlen(level1_completed.text);
 
 	char name[15];
 	char menu_selection[10];
 	int loop = 1;
 	int i;
 
-	second_map();
+	//first_map();
+	//second_map();
 
-    // game_title();
+    game_title();
 
-	// system("cls");
-	// printf("Enter your name: ");
-	// scanf("%s", &name);
-	// fflush(stdin);
+	system("cls");
+	printf("Enter your name: ");
+	scanf("%s", &name);
+	fflush(stdin);
 
-	// system("cls");
-	// printf("Now prove your courage, %s...", name);
-	// Sleep(2000);
+	system("cls");
+	printf("Now prove your courage, %s...", name);
+	Sleep(2000);
 
 	while(loop){
 
@@ -60,10 +65,34 @@ int main()
 		    introduction_text();
 		    getch();
 
-            if(first_map()){
-                printf("CONGRATS!!!\n\n");
-                getch();
-            }
+            first_map();
+			system("cls");
+
+			for(i = 0; i < level1_completed.length; i++){
+				printf("%c", level1_completed.text[i]);
+				Sleep(60);
+			}
+			printf("\n\n");
+            printf(">>Press any key to continue<<");
+            getch();
+			printf("\n");
+
+			system("cls");
+			printf("Loading next level");
+
+			for(i = 0; i < 3; i++){
+				printf(".");
+				Sleep(400);
+			}
+
+			Sleep(1000);
+
+			second_map();
+			system("cls");
+			printf("LEVEL 2 COMPLETED");
+			printf("\n\n");
+            printf(">>Press any key to continue<<");
+			getch();
 
         } else if(strcmp(menu_selection, "Tutorial") == 0 || strcmp(menu_selection, "tutorial") == 0 || strcmp(menu_selection, "TUTORIAL") == 0){
 			system("cls");
@@ -109,7 +138,7 @@ int main()
 	return 0;
 }
 
-//tï¿½ï¿½tulo do game.
+//título do game.
 void game_title(){
 	
 	int i;
@@ -132,7 +161,7 @@ void game_title(){
 	getch();
 }
 
-//texto que inicializa a histï¿½ria do jogo.
+//texto que inicializa a história do jogo.
 void introduction_text(){
 	
 	struct game_text p1;
@@ -160,21 +189,19 @@ void introduction_text(){
 		printf("%c", p2.text);
 		Sleep(60);
 	}
-
-	getch();
-
+	Sleep(1000);
 }
 
 //mapa 1.
-int first_map(){
+void first_map(){
 
 	struct player player;
 	struct monster monster;
 
 	player.coord_x = 1; player.coord_y = 1;
-	monster.coord_x = 5; monster.coord_y = 10;
+	//monster.coord_x = 5; monster.coord_y = 10;
+	player.HP = 3;
 	int key = 0;
-    int HP = 3;
 	int x, y;
 	char mapa[15][15] = {{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
  		 			  	 {'*', ' ', '*', ' ', '*', '*', '*', '*', '*', ' ', ' ', ' ', ' ', ' ', '*'},
@@ -196,50 +223,55 @@ int first_map(){
 
 			system("cls");
 
+			printf("\033[0;34m");
+			
             for(y = 0; y < 15; y++){
-				  for(x = 0; x < 15; x++){
-		  		       if(x == player.coord_x && y == player.coord_y){		
-				  	   printf("  &");
-			           } else if (x == monster.coord_x && y == monster.coord_y) {
-	  		 		   	 	printf("  X");
- 	          		     } else {
-							printf("  %c", mapa[y][x]);
-						 }
+				for(x = 0; x < 15; x++){
+		  		    if(x == player.coord_x && y == player.coord_y){	
+						printf("\033[1;36m");
+				  	   	printf("  &");
+						printf("\033[0;34m");
+			        } else {
+						printf("  %c", mapa[y][x]);	
+					}
 
-	              }
-				   printf("\n\n");
+	            }
+				printf("\n\n");
             }
+
+			printf("\033[0m");
+			
 //----------------------------------------------MONSTRO----------------------------------------------------------------------------------
 
-			monster.movement_keys = rand() % 4;
+			// monster.movement_keys = rand() % 4;
 		
-		    switch(monster.movement_keys){
+		    // switch(monster.movement_keys){
 
-				  case 0:
-				  	if(mapa[monster.coord_y-1][monster.coord_x] != '*' && mapa[monster.coord_y-1][monster.coord_x] != 'D' && mapa[monster.coord_y-1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
-							monster.coord_y--;
-						}
-				  break;
+			// 	  case 0:
+			// 	  	if(mapa[monster.coord_y-1][monster.coord_x] != '*' && mapa[monster.coord_y-1][monster.coord_x] != 'D' && mapa[monster.coord_y-1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
+			// 				monster.coord_y--;
+			// 			}
+			// 	  break;
 				  
-				  case 1:
-				  	if(mapa[monster.coord_y+1][monster.coord_x] != '*' && mapa[monster.coord_y+1][monster.coord_x] != 'D' && mapa[monster.coord_y+1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){							
-							monster.coord_y++;
-						}
-				  break;
+			// 	  case 1:
+			// 	  	if(mapa[monster.coord_y+1][monster.coord_x] != '*' && mapa[monster.coord_y+1][monster.coord_x] != 'D' && mapa[monster.coord_y+1][monster.coord_x] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){							
+			// 				monster.coord_y++;
+			// 			}
+			// 	  break;
 				  
-				  case 2:
-				  	if(mapa[monster.coord_y][monster.coord_x+1] != '*' && mapa[monster.coord_y][monster.coord_x+1] != 'D' && mapa[monster.coord_y][monster.coord_x+1] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
-							monster.coord_x++;
-						}
-				  break;
+			// 	  case 2:
+			// 	  	if(mapa[monster.coord_y][monster.coord_x+1] != '*' && mapa[monster.coord_y][monster.coord_x+1] != 'D' && mapa[monster.coord_y][monster.coord_x+1] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
+			// 				monster.coord_x++;
+			// 			}
+			// 	  break;
 				  
-				  case 3:
-				  	if(mapa[monster.coord_y][monster.coord_x-1] != '*' && mapa[monster.coord_y][monster.coord_x-1] != 'D' && mapa[monster.coord_y][monster.coord_x-1] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
-							monster.coord_x--;
-						}
-				  break;
+			// 	  case 3:
+			// 	  	if(mapa[monster.coord_y][monster.coord_x-1] != '*' && mapa[monster.coord_y][monster.coord_x-1] != 'D' && mapa[monster.coord_y][monster.coord_x-1] != '#' && mapa[monster.coord_y-1][monster.coord_x] != '='){
+			// 				monster.coord_x--;
+			// 			}
+			// 	  break;
 
-		 	}
+		 	// }
 
 			//----------------------------------------PLAYER------------------------------------------------------------
             
@@ -249,9 +281,9 @@ int first_map(){
 
 				  case 'W':
 				  	if(mapa[player.coord_y-1][player.coord_x] != '*' && mapa[player.coord_y-1][player.coord_x] != 'D'){
-						if(mapa[player.coord_y-1][player.coord_x] == '#' || player.coord_y-1 == monster.coord_y && player.coord_x == monster.coord_x){
+						if(mapa[player.coord_y-1][player.coord_x] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
-							HP--;
+							player.HP--;
 						} else {
 							player.coord_y--;
 						}
@@ -260,9 +292,9 @@ int first_map(){
 				  
 				  case 'S':
 				  	if(mapa[player.coord_y+1][player.coord_x] != '*' && mapa[player.coord_y+1][player.coord_x] != 'D'){
-				  		if(mapa[player.coord_y+1][player.coord_x] == '#' || player.coord_y+1 == monster.coord_y && player.coord_x == monster.coord_x){
+				  		if(mapa[player.coord_y+1][player.coord_x] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
-							HP--;							
+							player.HP--;							
 						} else {
 							player.coord_y++;
 						}
@@ -271,9 +303,9 @@ int first_map(){
 				  
 				  case 'D':
 				  	if(mapa[player.coord_y][player.coord_x+1] != '*' && mapa[player.coord_y][player.coord_x+1] != 'D'){
-				  		if(mapa[player.coord_y][player.coord_x+1] == '#' || player.coord_y == monster.coord_y && player.coord_x+1 == monster.coord_x){
+				  		if(mapa[player.coord_y][player.coord_x+1] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
-							HP--;
+							player.HP--;
 						} else {
 							player.coord_x++;
 						}
@@ -282,9 +314,9 @@ int first_map(){
 				  
 				  case 'A':
 				  	if(mapa[player.coord_y][player.coord_x-1] != '*' && mapa[player.coord_y][player.coord_x-1] != 'D'){
-				  		if(mapa[player.coord_y][player.coord_x-1] == '#' || player.coord_y == monster.coord_y && player.coord_x-1 == monster.coord_x){
+				  		if(mapa[player.coord_y][player.coord_x-1] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
-							HP--;
+							player.HP--;
 						} else {
 							player.coord_x--;
 						}
@@ -301,46 +333,39 @@ int first_map(){
 				  break;			
 		 	}
 
-			if(HP == 0){
+			if(player.HP == 0){
 				system("cls");
 				printf("GAME OVER\n\n");
+				printf("\"Just courage wasn\'t enough...\"\n\n");
 				printf(">> Press any key to try again <<");
 				getch();
-				HP = 3;
+				player.HP = 3;
 				
 				if(mapa[14][5] == '='){
 					if(mapa[8][3] == ' '){
 						mapa[8][3] = '@';
 						mapa[14][5] = 'D';
-						monster.coord_y = 11; monster.coord_x = 5;
 					}
 				}
 				continue;
 			}
 	}
-
-	system("cls");
-	printf("LEVEL 1 COMPLETED\n\n");
-	printf("CONGRATULATIONS!!!!!");
-	getch();
-
-    return 0;
 }
 
 //mapa 2.
-int second_map(){
+void second_map(){
 
 	struct monster monster;
 	struct player player;
 
 	player.coord_y = 1; monster.coord_y = 16;
 	player.coord_x = 1; monster.coord_x = 12;
+	player.HP = 3;
 	int x, y;
-	int HP = 3;
 
 	char mapa[30][30] = {{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
                          {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
-                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', ' ', '*'},
+                         {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O', ' ', '*'},
                          {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
                          {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', '#', '#', ' ', ' ', '#', '#', '*', '*', '*', '*', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
                          {'*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'},
@@ -374,19 +399,25 @@ int second_map(){
 
 			system("cls");
 
-            for(y = 0; y < 30; y++){
-				  for(x = 0; x < 30; x++){
-		  		       if(x == player.coord_x && y == player.coord_y){		
-				  	   printf("  &");
-			           } else if (x == monster.coord_x && y == monster.coord_y) {
-	  		 		   	 	printf("  V");
- 	          		     } else {
-							printf("  %c", mapa[y][x]);
-						 }
+			printf("\033[0;34m");
 
-	              }
-				   printf("\n");
+            for(y = 0; y < 30; y++){
+				for(x = 0; x < 30; x++){
+		  		    if(x == player.coord_x && y == player.coord_y){		
+					   		printf("\033[1;36m");
+				  	   		printf("  &");
+							printf("\033[0;34m");
+			        } else if (x == monster.coord_x && y == monster.coord_y) {
+	  		 		   	 	printf("  V");
+ 	          		} else {
+							printf("  %c", mapa[y][x]);
+					}
+	            }
+				printf("\n\n");
             }
+
+			printf("\033[0m");
+
 //----------------------------------------------MONSTRO----------------------------------------------------------------------------------
 
 			if (monster.coord_x > player.coord_x && abs(monster.coord_x-player.coord_x) >= abs(monster.coord_y-player.coord_y)){
@@ -396,7 +427,7 @@ int second_map(){
 
 				if (monster.coord_x == player.coord_x && monster.coord_y == player.coord_y){
 					player.coord_x = 1, player.coord_y = 1;
-					HP--;
+					player.HP--;
 				}
 
 			} else if (monster.coord_x < player.coord_x && abs(monster.coord_x-player.coord_x) >= abs(monster.coord_y-player.coord_y)){
@@ -406,7 +437,7 @@ int second_map(){
 
 				if (monster.coord_x == player.coord_x && monster.coord_y == player.coord_y){
 					player.coord_x = 1, player.coord_y = 1;
-					HP--;
+					player.HP--;
 				}
 
 			} else if (monster.coord_y > player.coord_y && abs(monster.coord_y-player.coord_y) >= abs(monster.coord_x-player.coord_x)){
@@ -416,7 +447,7 @@ int second_map(){
 
 				if (monster.coord_x == player.coord_x && monster.coord_y == player.coord_y){
 					player.coord_x = 1, player.coord_y = 1;
-					HP--;
+					player.HP--;
 				}
 
 			} else if (monster.coord_y < player.coord_y && abs(monster.coord_y-player.coord_y) >= abs(monster.coord_x-player.coord_x)){
@@ -426,7 +457,7 @@ int second_map(){
 
 				if (monster.coord_x == player.coord_x && monster.coord_y == player.coord_y){
 					player.coord_x = 1, player.coord_y = 1;
-					HP--;
+					player.HP--;
 				}
 			}
 
@@ -440,7 +471,7 @@ int second_map(){
 				  	if(mapa[player.coord_y-1][player.coord_x] != '*' && mapa[player.coord_y-1][player.coord_x] != 'D'){
 						if(mapa[player.coord_y-1][player.coord_x] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
-							HP--;
+							player.HP--;
 						} else {
 							player.coord_y--;
 						}
@@ -451,7 +482,7 @@ int second_map(){
 				  	if(mapa[player.coord_y+1][player.coord_x] != '*' && mapa[player.coord_y+1][player.coord_x] != 'D'){
 				  		if(mapa[player.coord_y+1][player.coord_x] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
-							HP--;							
+							player.HP--;							
 						} else {
 							player.coord_y++;
 						}
@@ -462,7 +493,7 @@ int second_map(){
 				  	if(mapa[player.coord_y][player.coord_x+1] != '*' && mapa[player.coord_y][player.coord_x+1] != 'D'){
 				  		if(mapa[player.coord_y][player.coord_x+1] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
-							HP--;
+							player.HP--;
 						} else {
 							player.coord_x++;
 						}
@@ -473,7 +504,7 @@ int second_map(){
 				  	if(mapa[player.coord_y][player.coord_x-1] != '*' && mapa[player.coord_y][player.coord_x-1] != 'D'){
 				  		if(mapa[player.coord_y][player.coord_x-1] == '#'){
 							player.coord_x = 1, player.coord_y = 1;
-							HP--;
+							player.HP--;
 						} else {
 							player.coord_x--;
 						}
@@ -484,9 +515,9 @@ int second_map(){
 				  	if(mapa[player.coord_y][player.coord_x] == '@'){
 						mapa[26][27] = ' ';
 						mapa[16][0] = '=';
-						mapa[16][13] = '=';
+						mapa[16][13] = '='; 
 
-					} else if(mapa[player.coord_y][player.coord_x] == 'o'){
+					} else if(mapa[player.coord_y][player.coord_x] == 'O'){
 						mapa[27][26] = ' ';
 						mapa[26][26] = ' ';
 						mapa[25][26] = ' ';
@@ -501,12 +532,12 @@ int second_map(){
 				  break;			
 		 	}
 
-			if(HP == 0){
+			if(player.HP == 0){
 				system("cls");
 				printf("GAME OVER\n\n");
 				printf(">> Press any key to try again <<");
 				getch();
-				HP = 3;
+				player.HP = 3;
 				
 				if(mapa[16][0] == '='){
 					if(mapa[26][27] == ' '){
@@ -518,12 +549,4 @@ int second_map(){
 				continue;
 			}
 	}
-
-	system("cls");
-	printf("LEVEL 2 COMPLETED\n\n");
-	printf("CONGRATULATIONS!!!!!");
-	getch();
-
-
-	return 0;
 }

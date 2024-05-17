@@ -9,6 +9,7 @@ struct player {
     int coord_x;
     int coord_y;
     char movement_keys;
+    int HP;
 };
 
 struct monster {
