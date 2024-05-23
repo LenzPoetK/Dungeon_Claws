@@ -4,8 +4,9 @@
 #include <conio.h>
 #include <string.h>
 #include <ctype.h>
-
+#include <locale.h>
 #include "struct_test.c"
+#include "Menu.h"
 
 /*
 ATALHOS ÚTEIS:
@@ -31,9 +32,10 @@ int main()
 	level1_completed.length = strlen(level1_completed.text);
 
 	char name[15];
-	char menu_selection[10];
+	char lista[3][40] = {"> Play", "> Tutorial", "> Exit"};
+	//char menu_selection[10];
 	int loop = 1;
-	int i;
+	int i, opc;
 
 	//first_map();
 	//second_map();
@@ -51,15 +53,19 @@ int main()
 
 	while(loop){
 
-        system("cls");
-		printf("> Play\n");
-		printf("> Tutorial\n");
-		printf("> Exit\n\n");
-		printf("Select an option: ");
-        fflush(stdin);
-		scanf("%s", &menu_selection);
+		opc = menu(10, 10, 3, lista);
+        // system("cls");
+		// printf("> Play\n");
+		// printf("> Tutorial\n");
+		// printf("> Exit\n\n");
+		// printf("Select an option: ");
+        // fflush(stdin);
+		// scanf("%s", &menu_selection);
 
-        if(strcmp(menu_selection, "play") == 0 || strcmp(menu_selection, "Play") == 0 || strcmp(menu_selection, "PLAY") == 0){
+        if(opc == 0){
+			break;
+        } 
+		else if(opc == 1){
 		    system("cls");
 		
 		    introduction_text();
@@ -94,7 +100,8 @@ int main()
             printf(">>Press any key to continue<<");
 			getch();
 
-        } else if(strcmp(menu_selection, "Tutorial") == 0 || strcmp(menu_selection, "tutorial") == 0 || strcmp(menu_selection, "TUTORIAL") == 0){
+		} 
+		else if(opc == 2){
 			system("cls");
 			printf("> Basic movements:                 > During the game:\n\n");
 
@@ -109,32 +116,25 @@ int main()
 			printf("                    >> Press any key to go back <<");
 			getch();
 			continue;
-
-		} else if(strcmp(menu_selection, "Exit") == 0 || strcmp(menu_selection, "exit") == 0 || strcmp(menu_selection, "EXIT") == 0){
+		} 
+		else if(opc == 3){
 			system("cls");
 
 			printf("leaving");
 
 			for(i = 0; i < 3; i++){
-			printf(".");
-			Sleep(400);
+				printf(".");
+				Sleep(400);
 			}
 
 			Sleep(1000);
 			break;
-
-		} else {
-
-			system("cls");
-			printf("Invalid option. Try again.");
-			getch();
-			continue;
-
 		}
-		
-		break;
 	}
-	
+	textColor(WHITE, _BLACK);
+    linhaCol(24, 1);
+    printf(" ");
+
 	return 0;
 }
 
