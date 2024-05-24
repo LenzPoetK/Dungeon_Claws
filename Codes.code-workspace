@@ -9,7 +9,8 @@
 	],
 	"settings": {
 		"files.associations": {
-			"conio.h": "c"
+			"conio.h": "c",
+			"locale.h": "c"
 		}
 	}
 }
