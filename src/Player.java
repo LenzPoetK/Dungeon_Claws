@@ -57,4 +57,12 @@ public class Player {
         if(agility > 0)
             this.agility = agility;
     }
+
+    public void showDetails(){
+        System.out.println("Name: " + this.name);
+        System.out.println("HP: " + this.hp);
+        System.out.println("Constituition: " + this.constuition);
+        System.out.println("Strength: " + this.strength);
+        System.out.println("Agility: " + this.agility);
+    }
 }

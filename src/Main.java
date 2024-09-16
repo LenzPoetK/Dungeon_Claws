@@ -1,10 +1,13 @@
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
 
+        //titulo do game
         System.out.println(" ______            _        _______  _______  _______  _          _______  _        _______           _______ ");
         System.out.println("(  __  \\ |\\     /|( (    /|(  ____ \\(  ____ \\(  ___  )( (    /|  (  ____ \\( \\      (  ___  )|\\     /|(  ____ \\");
         System.out.println("| (  \\  )| )   ( ||  \\  ( || (    \\/| (    \\/| (   ) ||  \\  ( |  | (    \\/| (      | (   ) || )   ( || (    \\/");
@@ -22,6 +25,7 @@ public class Main {
 
             ClearConsole.clear();
 
+            //menu principal
             System.out.println("> Play (P)");
             System.out.println("> Tutorial (T)");
             System.out.println("> Exit (E)\n");
@@ -31,13 +35,13 @@ public class Main {
             scanner.nextLine();
 
             if(option == 'P'){
+                //Declaracao de variaveis
                 char attributeOption;
                 int attributePoints = 15;
                 String name;
-                int hp;
+                int hp = 0;
                 int strength = 0;
                 int constuition = 0;
-                int defense = 0;
                 int agility = 0;
 
                 ClearConsole.clear();
@@ -48,18 +52,19 @@ public class Main {
                 while(true){
                     ClearConsole.clear();
 
+                    //tela de selecao para distrubuir os pontos
                     System.out.println("Adventurer: " + name + "\n");
                     System.out.printf("You have %d attribute points to distribute\n", attributePoints);
                     System.out.println("ATTRIBUTES:");
                     System.out.println("> Constituition (C): " + constuition);
                     System.out.println("> Strength (S): " + strength);
-                    System.out.println("> Agility (A): " + agility);
-                    System.out.println("> Defense (D): " + defense + "\n");
+                    System.out.println("> Agility (A): " + agility + "\n");
 
-                    if(attributePoints == 0) {
+                    if(attributePoints <= 0) {
+                        //confirmacao dos pontos atribuidos
                         char confirmOption;
-                        System.out.println("> YES (Y)");
-                        System.out.println("> NO (N)");
+                        System.out.println("> PROCEED (Y)");
+                        System.out.println("> REDISTRIBUTE POINTS (N)");
                         System.out.print("Confirm your choices?: ");
                         confirmOption = scanner.next().charAt(0);
 
@@ -71,7 +76,6 @@ public class Main {
                             constuition = 0;
                             strength = 0;
                             agility = 0;
-                            defense = 0;
                             continue;
                         }
                         else{
@@ -86,32 +90,55 @@ public class Main {
                     scanner.nextLine();
 
                     if(attributeOption == 'C'){
+                        int constituitionAdd;
                         ClearConsole.clear();
                         System.out.println("Points for constituition: ");
-                        constuition = scanner.nextInt();
+                        constituitionAdd = scanner.nextInt();
+                        constuition = constituitionAdd >= 0 ? constituitionAdd : constuition;
                         scanner.nextLine();
-                        attributePoints -= constuition;
+
+                        if(constituitionAdd >= 0){
+                            attributePoints -= constuition;
+                        }
+                        else {
+                            ClearConsole.clear();
+                            System.out.println("You can't remove points. If you want to redistribute, use all your points first.");
+                            scanner.nextLine();
+                        }
                     }
                     else if(attributeOption == 'A'){
+                        int agilityAdd;
                         ClearConsole.clear();
                         System.out.println("Points for constituition: ");
-                        agility = scanner.nextInt();
+                        agilityAdd = scanner.nextInt();
+                        agility = agilityAdd >= 0 ? agilityAdd : agility;
                         scanner.nextLine();
-                        attributePoints -= agility;
+
+                        if(agilityAdd >= 0){
+                            attributePoints -= agility;
+                        }
+                        else{
+                            ClearConsole.clear();
+                            System.out.println("You can't remove points. If you want to redistribute, use all your points first.");
+                            scanner.nextLine();
+                        }
                     }
                     else if(attributeOption == 'S'){
+                        int strengthAdd;
                         ClearConsole.clear();
                         System.out.println("Points for strength: ");
-                        strength = scanner.nextInt();
+                        strengthAdd = scanner.nextInt();
+                        strength = strengthAdd >= 0 ? strengthAdd : strength;
                         scanner.nextLine();
-                        attributePoints -= strength;
-                    }
-                    else if(attributeOption == 'D'){
-                        ClearConsole.clear();
-                        System.out.println("Points for defense: ");
-                        defense = scanner.nextInt();
-                        scanner.nextLine();
-                        attributePoints -= defense;
+
+                        if(strengthAdd >= 0){
+                            attributePoints -= strength;
+                        }
+                        else{
+                            ClearConsole.clear();
+                            System.out.println("You can't remove points. If you want to redistribute, use all your points first.");
+                            scanner.nextLine();
+                        }
                     }
                     else{
                         ClearConsole.clear();
@@ -119,6 +146,16 @@ public class Main {
                         scanner.nextLine();
                     }
                 }
+                ClearConsole.clear();
+                scanner.nextLine();
+                hp += random.nextInt(6) + 1;
+                hp += random.nextInt(6) + 1;
+                hp += random.nextInt(6) + 1;
+                hp += constuition;
+
+                Player player = new Player(name, hp, constuition, strength, agility);
+                player.showDetails();
+                scanner.nextLine();
             }
             else if(option == 'T'){
                 ClearConsole.clear();
