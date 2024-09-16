@@ -16,10 +16,9 @@ public class Main {
 
         System.out.print(">> Press any key to continue <<");
         scanner.nextLine();
-
+        
         while(true){
             char option;
-            String name;
 
             ClearConsole.clear();
 
@@ -32,9 +31,94 @@ public class Main {
             scanner.nextLine();
 
             if(option == 'P'){
+                char attributeOption;
+                int attributePoints = 15;
+                String name;
+                int hp;
+                int strength = 0;
+                int constuition = 0;
+                int defense = 0;
+                int agility = 0;
+
                 ClearConsole.clear();
-                System.out.println("game");
-                scanner.nextLine();
+               
+                System.out.print("Enter your adventurer's name: ");
+                name = scanner.nextLine();
+
+                while(true){
+                    ClearConsole.clear();
+
+                    System.out.println("Adventurer: " + name + "\n");
+                    System.out.printf("You have %d attribute points to distribute\n", attributePoints);
+                    System.out.println("ATTRIBUTES:");
+                    System.out.println("> Constituition (C): " + constuition);
+                    System.out.println("> Strength (S): " + strength);
+                    System.out.println("> Agility (A): " + agility);
+                    System.out.println("> Defense (D): " + defense + "\n");
+
+                    if(attributePoints == 0) {
+                        char confirmOption;
+                        System.out.println("> YES (Y)");
+                        System.out.println("> NO (N)");
+                        System.out.print("Confirm your choices?: ");
+                        confirmOption = scanner.next().charAt(0);
+
+                        if(confirmOption == 'Y'){
+                            break;
+                        }
+                        else if(confirmOption == 'N'){
+                            attributePoints = 15;
+                            constuition = 0;
+                            strength = 0;
+                            agility = 0;
+                            defense = 0;
+                            continue;
+                        }
+                        else{
+                            System.out.println("Select a valid option.");
+                            scanner.nextLine();
+                            continue;
+                        }
+                    }
+
+                    System.out.print("Chose an attribute to add points: ");
+                    attributeOption = scanner.next().charAt(0);
+                    scanner.nextLine();
+
+                    if(attributeOption == 'C'){
+                        ClearConsole.clear();
+                        System.out.println("Points for constituition: ");
+                        constuition = scanner.nextInt();
+                        scanner.nextLine();
+                        attributePoints -= constuition;
+                    }
+                    else if(attributeOption == 'A'){
+                        ClearConsole.clear();
+                        System.out.println("Points for constituition: ");
+                        agility = scanner.nextInt();
+                        scanner.nextLine();
+                        attributePoints -= agility;
+                    }
+                    else if(attributeOption == 'S'){
+                        ClearConsole.clear();
+                        System.out.println("Points for strength: ");
+                        strength = scanner.nextInt();
+                        scanner.nextLine();
+                        attributePoints -= strength;
+                    }
+                    else if(attributeOption == 'D'){
+                        ClearConsole.clear();
+                        System.out.println("Points for defense: ");
+                        defense = scanner.nextInt();
+                        scanner.nextLine();
+                        attributePoints -= defense;
+                    }
+                    else{
+                        ClearConsole.clear();
+                        System.out.println("Select a valid option.");
+                        scanner.nextLine();
+                    }
+                }
             }
             else if(option == 'T'){
                 ClearConsole.clear();
