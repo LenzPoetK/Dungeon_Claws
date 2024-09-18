@@ -4,6 +4,7 @@ public class Player {
     private int constuition;
     private int strength;
     private int agility;
+    private Weapon weaponUsed;
 
     public Player(String name, int hp, int constuition, int strength, int agility){
         this.name = name;
@@ -11,6 +12,14 @@ public class Player {
         this.constuition = constuition;
         this.strength = strength;
         this.agility = agility;
+    }
+
+    public Weapon getCurrentWeapon() {
+        return this.weaponUsed;
+    }
+
+    public void updateWeapon(Weapon newWeapon) {
+        this.weaponUsed = newWeapon;
     }
 
     public String getName() {
