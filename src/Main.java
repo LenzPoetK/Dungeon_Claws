@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
@@ -92,7 +93,7 @@ public class Main {
                     if(attributeOption == 'C'){
                         int constituitionAdd;
                         ClearConsole.clear();
-                        System.out.println("Points for constituition: ");
+                        System.out.print("Points for constituition: ");
                         constituitionAdd = scanner.nextInt();
                         constuition = constituitionAdd >= 0 ? constituitionAdd : constuition;
                         scanner.nextLine();
@@ -109,7 +110,7 @@ public class Main {
                     else if(attributeOption == 'A'){
                         int agilityAdd;
                         ClearConsole.clear();
-                        System.out.println("Points for constituition: ");
+                        System.out.print("Points for constituition: ");
                         agilityAdd = scanner.nextInt();
                         agility = agilityAdd >= 0 ? agilityAdd : agility;
                         scanner.nextLine();
@@ -119,14 +120,14 @@ public class Main {
                         }
                         else{
                             ClearConsole.clear();
-                            System.out.println("You can't remove points. If you want to redistribute, use all your points first.");
+                            System.out.print("You can't remove points. If you want to redistribute, use all your points first.");
                             scanner.nextLine();
                         }
                     }
                     else if(attributeOption == 'S'){
                         int strengthAdd;
                         ClearConsole.clear();
-                        System.out.println("Points for strength: ");
+                        System.out.print("Points for strength: ");
                         strengthAdd = scanner.nextInt();
                         strength = strengthAdd >= 0 ? strengthAdd : strength;
                         scanner.nextLine();
@@ -136,13 +137,13 @@ public class Main {
                         }
                         else{
                             ClearConsole.clear();
-                            System.out.println("You can't remove points. If you want to redistribute, use all your points first.");
+                            System.out.print("You can't remove points. If you want to redistribute, use all your points first.");
                             scanner.nextLine();
                         }
                     }
                     else{
                         ClearConsole.clear();
-                        System.out.println("Select a valid option.");
+                        System.out.print("Select a valid option.");
                         scanner.nextLine();
                     }
                 }
@@ -176,5 +177,6 @@ public class Main {
                 scanner.nextLine();
             }
         }
+        scanner.close();
     }
 }
