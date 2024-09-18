@@ -25,17 +25,17 @@ public class Main {
 
             ClearConsole.clear();
 
-            //menu principal
+            //Main menu
             System.out.println("> Play (P)");
             System.out.println("> Tutorial (T)");
             System.out.println("> Exit (E)\n");
 
             System.out.print("Chose one option: ");
-            option = scanner.next().charAt(0);
+            option = Character.toUpperCase(scanner.next().charAt(0));
             scanner.nextLine();
 
             if(option == 'P'){
-                //Declaracao de variaveis
+                //Variables declaration
                 char attributeOption;
                 int attributePoints = 15;
                 String name;
@@ -52,7 +52,7 @@ public class Main {
                 while(true){
                     ClearConsole.clear();
 
-                    //tela de selecao para distrubuir os pontos
+                    //Selection screen for points distribution
                     System.out.println("Adventurer: " + name + "\n");
                     System.out.printf("You have %d attribute points to distribute\n", attributePoints);
                     System.out.println("ATTRIBUTES:");
@@ -61,12 +61,12 @@ public class Main {
                     System.out.println("> Agility (A): " + agility + "\n");
 
                     if(attributePoints <= 0) {
-                        //confirmacao dos pontos atribuidos
+                        //Confirmation of the attributed points
                         char confirmOption;
                         System.out.println("> PROCEED (Y)");
                         System.out.println("> REDISTRIBUTE POINTS (N)");
                         System.out.print("Confirm your choices?: ");
-                        confirmOption = scanner.next().charAt(0);
+                        confirmOption = Character.toUpperCase(scanner.next().charAt(0));
 
                         if(confirmOption == 'Y'){
                             break;
@@ -86,7 +86,7 @@ public class Main {
                     }
 
                     System.out.print("Chose an attribute to add points: ");
-                    attributeOption = scanner.next().charAt(0);
+                    attributeOption = Character.toUpperCase(scanner.next().charAt(0));
                     scanner.nextLine();
 
                     if(attributeOption == 'C'){
@@ -148,6 +148,7 @@ public class Main {
                 }
                 ClearConsole.clear();
                 scanner.nextLine();
+                //Rolls D6 for defining player HP
                 hp += random.nextInt(6) + 1;
                 hp += random.nextInt(6) + 1;
                 hp += random.nextInt(6) + 1;
