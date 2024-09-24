@@ -15,6 +15,14 @@ public class Enemy {
         this.potionCount = potionCount;
     }
 
+    public void attack(Player player){
+        player.setHp(player.getHp() - damage);
+    }
+    
+    public void usePotion(){
+        hp += Potion.healingValue();
+    }
+
     public int getPotionCount() {
         return potionCount;
     }

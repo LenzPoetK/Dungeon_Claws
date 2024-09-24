@@ -1,4 +1,5 @@
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Player {
@@ -34,6 +35,24 @@ public class Player {
             enemy.setHp(
                 enemy.getHp() - weaponInUse.getDamage() + dexterity
             );
+        }
+    }
+
+    public void battle(Enemy enemy){
+        if(getAgility() > enemy.getAgility()){
+
+        }
+        else if(getAgility() < enemy.getAgility()){
+            Random random = new Random();
+            int enemyOption = random.nextInt(5)+1;
+
+            switch(enemyOption){
+                case 1 -> enemy.attack(this);
+                case 2 -> enemy.attack(this);
+                case 3 -> enemy.attack(this);
+                case 4 -> enemy.usePotion();
+                case 5 -> enemy.attack(this);
+            }
         }
     }
 
@@ -91,7 +110,7 @@ public class Player {
     }
 
     public void setHp(int hp) {
-        if(hp > 0)
+        if(hp >= 0)
             this.hp = hp;
     }
 
@@ -108,7 +127,7 @@ public class Player {
     }
 
     public void setConstuition(int constuition) {
-        if(constuition > 0)
+        if(constuition >= 0)
             this.constuition = constuition;
     }
 
@@ -117,7 +136,7 @@ public class Player {
     }
 
     public void setStrength(int strength) {
-        if(strength > 0)
+        if(strength >= 0)
             this.strength = strength;
     }
 
@@ -126,7 +145,7 @@ public class Player {
     }
 
     public void setAgility(int agility) {
-        if(agility > 0)
+        if(agility >= 0)
             this.agility = agility;
     }
 

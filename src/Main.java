@@ -80,6 +80,7 @@ public class Main {
                                     attributePoints = 15;
                                     constuition = 0;
                                     strength = 0;
+                                    dexterity = 0;
                                     agility = 0;
                                     continue;
                                 }
@@ -150,7 +151,7 @@ public class Main {
                             case 'D' -> {
                                 int dexterityAdd;
                                 ClearConsole.clear();
-                                System.out.println("Points for dexterity: ");
+                                System.out.print("Points for dexterity: ");
                                 dexterityAdd = scanner.nextInt();
                                 dexterity = dexterityAdd >= 0 ? dexterityAdd : dexterity;
                                 scanner.nextLine();
@@ -211,7 +212,7 @@ public class Main {
                         System.out.println("> Heavy sword (H):");
                         System.out.println("  * Base damage: 8");
                         System.out.println("  * The damage of this weapon can be improved depending");
-                        System.out.println("    of your strength");
+                        System.out.println("    of your strength\n");
 
                         System.out.println("> Dagger (D):");
                         System.out.println("  * Base damage: 4");
@@ -255,12 +256,13 @@ public class Main {
 
                         Sprites.girasTheMage();
 
-                        System.out.println("-------------------------------");
+                        System.out.println("--------------------------------");
                         
                         System.out.println("HP: " + player.getHp());
                         System.out.println("Attack (A) Defense (D) Use potion (P)");
                         System.out.print("What do you want to do?: ");
                         inGameOption = Character.toUpperCase(scanner.next().charAt(0));
+                        scanner.nextLine();
                         
                         switch(inGameOption){
                             case 'A' -> player.attack(girasTheMage);
@@ -275,7 +277,55 @@ public class Main {
                             }
                         }
 
+                        ClearConsole.clear();
+                        Sprites.girasTheMage();
+
+                        System.out.print("Now, it\'s my turn.");
+                        scanner.nextLine();
+
+                        girasTheMage.attack(player);
+
+                        ClearConsole.clear();
                         
+                        System.out.println("--------------------------------");
+
+                        System.out.println("===================================");
+                        System.out.println("|  Giras, THE mage, attacked you! |");
+                        System.out.println("===================================");
+
+                        System.out.println("You are facing a Giras.\n");
+                        System.out.println("Name: " + girasTheMage.getName());
+                        System.out.println("HP: " + girasTheMage.getHp());
+
+                        Sprites.girasTheMage();
+
+                        System.out.println("Try to use a potion to recover your life.");
+
+                        System.out.println("--------------------------------");
+                        
+                        System.out.println("HP: " + player.getHp());
+                        System.out.println("Attack (A) Defense (D) Use potion (P)");
+                        System.out.print("What do you want to do?: ");
+                        inGameOption = Character.toUpperCase(scanner.next().charAt(0));
+                        
+                        switch(inGameOption){
+                            case 'P' -> player.usePotion();
+                            default -> {
+                                ClearConsole.clear();
+
+                               Sprites.girasTheMage();
+
+                                System.out.print("Press \"p\" to use a potion!");
+                                scanner.nextLine();
+                                continue;
+                            }
+                        }
+
+                        ClearConsole.clear();
+                        Sprites.girasTheMage();
+
+                        System.out.print("Now, it\'s my turn.");
+                        scanner.nextLine();
                     }
                 }
                 case 'C' -> {
