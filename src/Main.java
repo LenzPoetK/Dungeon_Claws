@@ -7,6 +7,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
+        ClearConsole.clear();
 
         //titulo do game
         System.out.println(" ______            _        _______  _______  _______  _          _______  _        _______           _______ ");
@@ -32,132 +33,45 @@ public class Main {
             System.out.println("> Exit (E)\n");
 
             System.out.print("Chose one option: ");
-            option = Character.toUpperCase(scanner.next().charAt(0));
-            scanner.nextLine();
+            option = Character.toUpperCase(scanner.nextLine().charAt(0));
 
             if(option == 'P'){
                 //Variables declaration
-                char attributeOption;
                 int attributePoints = 15;
                 String name;
                 int hp = 0;
-                int strength = 0;
-                int constuition = 0;
-                int agility = 0;
 
+                Player player = new Player(null, 0, 0, 0, 0, 0);
                 ClearConsole.clear();
                
-                System.out.print("Enter your adventurer's name: ");
-                name = scanner.nextLine();
-
-                while(true){
-                    ClearConsole.clear();
-
-                    //Selection screen for points distribution
-                    System.out.println("Adventurer: " + name + "\n");
-                    System.out.printf("You have %d attribute points to distribute\n", attributePoints);
-                    System.out.println("ATTRIBUTES:");
-                    System.out.println("> Constituition (C): " + constuition);
-                    System.out.println("> Strength (S): " + strength);
-                    System.out.println("> Agility (A): " + agility + "\n");
-
-                    if(attributePoints <= 0) {
-                        //Confirmation of the attributed points
-                        char confirmOption;
-                        System.out.println("> PROCEED (Y)");
-                        System.out.println("> REDISTRIBUTE POINTS (N)");
-                        System.out.print("Confirm your choices?: ");
-                        confirmOption = Character.toUpperCase(scanner.next().charAt(0));
-
-                        if(confirmOption == 'Y'){
-                            break;
-                        }
-                        else if(confirmOption == 'N'){
-                            attributePoints = 15;
-                            constuition = 0;
-                            strength = 0;
-                            agility = 0;
-                            continue;
-                        }
-                        else{
-                            System.out.println("Select a valid option.");
-                            scanner.nextLine();
-                            continue;
-                        }
-                    }
-
-                    System.out.print("Chose an attribute to add points: ");
-                    attributeOption = Character.toUpperCase(scanner.next().charAt(0));
-                    scanner.nextLine();
-
-                    if(attributeOption == 'C'){
-                        int constituitionAdd;
-                        ClearConsole.clear();
-                        System.out.print("Points for constituition: ");
-                        constituitionAdd = scanner.nextInt();
-                        constuition = constituitionAdd >= 0 ? constituitionAdd : constuition;
-                        scanner.nextLine();
-
-                        if(constituitionAdd >= 0){
-                            attributePoints -= constuition;
-                        }
-                        else {
-                            ClearConsole.clear();
-                            System.out.println("You can't remove points. If you want to redistribute, use all your points first.");
-                            scanner.nextLine();
-                        }
-                    }
-                    else if(attributeOption == 'A'){
-                        int agilityAdd;
-                        ClearConsole.clear();
-                        System.out.print("Points for constituition: ");
-                        agilityAdd = scanner.nextInt();
-                        agility = agilityAdd >= 0 ? agilityAdd : agility;
-                        scanner.nextLine();
-
-                        if(agilityAdd >= 0){
-                            attributePoints -= agility;
-                        }
-                        else{
-                            ClearConsole.clear();
-                            System.out.print("You can't remove points. If you want to redistribute, use all your points first.");
-                            scanner.nextLine();
-                        }
-                    }
-                    else if(attributeOption == 'S'){
-                        int strengthAdd;
-                        ClearConsole.clear();
-                        System.out.print("Points for strength: ");
-                        strengthAdd = scanner.nextInt();
-                        strength = strengthAdd >= 0 ? strengthAdd : strength;
-                        scanner.nextLine();
-
-                        if(strengthAdd >= 0){
-                            attributePoints -= strength;
-                        }
-                        else{
-                            ClearConsole.clear();
-                            System.out.print("You can't remove points. If you want to redistribute, use all your points first.");
-                            scanner.nextLine();
-                        }
-                    }
-                    else{
-                        ClearConsole.clear();
-                        System.out.print("Select a valid option.");
-                        scanner.nextLine();
+                while (true){
+                    System.out.print("Enter your adventurer's name: ");
+                    name = scanner.nextLine();
+                    if (name.length() > 0){
+                        player.setName(name);
+                        break;
+                    }else{
+                        player.setName("Noname");
+                        break;
                     }
                 }
-                ClearConsole.clear();
-                scanner.nextLine();
+                
+
+                player.levelUp(attributePoints);
+
+                
                 //Rolls D6 for defining player HP
                 hp += random.nextInt(6) + 1;
                 hp += random.nextInt(6) + 1;
                 hp += random.nextInt(6) + 1;
-                hp += constuition;
-
-                Player player = new Player(name, hp, constuition, strength, agility);
+                hp += player.getConstuition();
+                player.setHp(hp);
+                
                 player.showDetails();
                 scanner.nextLine();
+
+
+                player.levelUp(5);
             }
             else if(option == 'T'){
                 ClearConsole.clear();
