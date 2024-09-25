@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
+        
+        Player player = new Player(null, 0, 0, 0, 0, 0);
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
         ClearConsole.clear();
 
         //titulo do game
@@ -41,7 +41,6 @@ public class Main {
                 String name;
                 int hp = 0;
 
-                Player player = new Player(null, 0, 0, 0, 0, 0);
                 ClearConsole.clear();
                
                 while (true){
@@ -80,6 +79,69 @@ public class Main {
                 scanner.nextLine();
             }
         }
+
+        Weapon adaga = new Weapon(4, "Light");
+        Weapon espada = new Weapon(5, "Light");
+        Weapon machado = new Weapon(4, "Heavy");
+
+
+        while (true) {
+            System.out.println("Now you must choose a weapon to acompany you");
+            System.out.println("(A)daga");
+
+            break;
+        }
+
+        firstRandomBattle();
+        player.levelUp(5);
+
+        secondRandomBattle();
+        player.levelUp(10);
+
+
+        thirdRandomBattle();
+        // endgame();
         scanner.close();
+    }
+
+    private static void firstRandomBattle() {
+        Random random = new Random();
+        Enemy redGoblin = new Enemy(2, 5, 2, 15, "Red Goblin");
+        Enemy greenGoblin = new Enemy(2, 5, 2, 15, "Green Goblin");
+        Enemy blueGoblin = new Enemy(2, 5, 2, 15, "Blue Goblin");
+
+        int randomEnemyChoice = random.nextInt(3);
+
+        switch (randomEnemyChoice) {
+            case 0:
+                // player.battle(redGoblin);
+                break;
+            case 1:
+                // player.battle(greenGoblin);
+                break;
+            case 2:
+                // player.battle(blueGoblin);
+        }
+    }
+
+    private static void secondRandomBattle(){
+        Random random = new Random();
+        Enemy redOrc = new Enemy(2, 5, 2, 15, "Red Orc");
+        Enemy BlueOrc = new Enemy(2, 5, 2, 15, "blue Orc");
+
+        int randomEnemyChoice = random.nextInt(3);
+
+        switch (randomEnemyChoice) {
+            case 0:
+                // player.battle(redOrc);
+                break;
+            case 1:
+                // player.battle(blueOrc);
+                break;
+            case 2:
+        }
+    }
+    private static void thirdRandomBattle(){
+        Enemy redDragon = new Enemy(10, 10, 10, 30, "Red Dragon");
     }
 }

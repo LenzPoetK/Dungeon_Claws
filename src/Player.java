@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Player {
     private String name;  
     private int hp;
+    private int maxhp;
     private int constuition;
     private int strength;
     private int agility;
@@ -30,7 +31,6 @@ public class Player {
         int backupStrength = this.getStrength()+1-1;
         int backupDexterity = this.getDexterity()+1-1;
         while (availablePoints>0) {
-            
             System.out.println("Adventurer " + getName() +  ", you have " + availablePoints + " points to distribute on:");
             System.out.println("(C)onstitution: " + constuition);
             System.out.println("(S)trength: " + strength);
@@ -70,8 +70,6 @@ public class Player {
                     setDexterity(getDexterity()+pointsToAdd);
                     break;
             }
-
-            setHp(initialHpCalc(getConstuition()));
         }
 
         System.out.println("Name: " + this.name);
@@ -98,6 +96,15 @@ public class Player {
             System.out.println("Select a valid option");
             player_scanner.nextLine();
             levelUp(0);
+        }
+
+        if (hp == 0) {
+            setHp(initialHpCalc(getConstuition()));
+            setMaxhp(getHp());
+        }
+        else
+        {
+            setHp(getHp() + getConstuition());
         }
     }
 
@@ -127,6 +134,14 @@ public class Player {
     }
 
     
+
+    public int getMaxhp() {
+        return maxhp;
+    }
+
+    public void setMaxhp(int maxhp) {
+        this.maxhp = maxhp;
+    }
 
     public int getDexterity() {
         return dexterity;
