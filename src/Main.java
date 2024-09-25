@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
+        
+        Player player = new Player(null, 0, 0, 0, 0, 0);
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
-
         ClearConsole.clear();
 
         //titulo do game
@@ -38,8 +37,7 @@ public class Main {
             System.out.println("> Credits (C)");
             System.out.println("> Exit (E)\n");
             System.out.print("Chose one option: ");
-            option = Character.toUpperCase(scanner.next().charAt(0));
-            scanner.nextLine();
+            option = Character.toUpperCase(scanner.nextLine().charAt(0));
 
             switch (option) {
                 case 'P' -> {
@@ -348,23 +346,114 @@ public class Main {
                 case 'C' -> {
                     ClearConsole.clear();
                     System.out.println("\"Dungeon Claws\" was a game made by Leonardo Antonio Gomes dos Santos");
-                    System.out.println("                and José Victor Colino Gonçalves\n");
+                    System.out.println("                and Josï¿½ Victor Colino Gonï¿½alves\n");
+            if(option == 'P'){
+                //Variables declaration
+                int attributePoints = 15;
+                String name;
+                int hp = 0;
 
-                    System.out.print("                   >> Press any key to return <<");
-                    scanner.nextLine();
+                ClearConsole.clear();
+               
+                while (true){
+                    System.out.print("Enter your adventurer's name: ");
+                    name = scanner.nextLine();
+                    if (name.length() > 0){
+                        player.setName(name);
+                        break;
+                    }else{
+                        player.setName("Noname");
+                        break;
+                    }
                 }
-                case 'E' -> {
-                    ClearConsole.clear();
-                    System.out.println("Sair");
-                    break GAME;
-                }
-                default -> {
-                    ClearConsole.clear();
-                    System.out.print("Select a valid option.");
-                    scanner.nextLine();
-                }
+                
+                //levelUP is just a attribute distribution for the player
+                player.levelUp(attributePoints);
+                
+                player.showDetails();
+                scanner.nextLine();
+            }
+            else if(option == 'T'){
+                ClearConsole.clear();
+                System.out.println("Tutorial\n");
+
+                System.out.print(">> Press any key to return <<");
+                scanner.nextLine();
+            }
+            else if(option == 'E'){
+                ClearConsole.clear();
+                System.out.println("Sair");
+                break;
+            }
+            else{
+                ClearConsole.clear();
+                System.out.println("Select a valid option.");
+                scanner.nextLine();
             }
         }
+
+        Weapon adaga = new Weapon(4, "Light");
+        Weapon espada = new Weapon(5, "Light");
+        Weapon machado = new Weapon(4, "Heavy");
+
+
+        while (true) {
+            System.out.println("Now you must choose a weapon to acompany you");
+            System.out.println("(A)daga");
+
+            break;
+        }
+
+        firstRandomBattle();
+        player.levelUp(5);
+
+        secondRandomBattle();
+        player.levelUp(10);
+
+
+        thirdRandomBattle();
+        // endgame();
         scanner.close();
+    }
+
+    private static void firstRandomBattle() {
+        Random random = new Random();
+        Enemy redGoblin = new Enemy(2, 5, 2, 15, "Red Goblin");
+        Enemy greenGoblin = new Enemy(2, 5, 2, 15, "Green Goblin");
+        Enemy blueGoblin = new Enemy(2, 5, 2, 15, "Blue Goblin");
+
+        int randomEnemyChoice = random.nextInt(3);
+
+        switch (randomEnemyChoice) {
+            case 0:
+                // player.battle(redGoblin);
+                break;
+            case 1:
+                // player.battle(greenGoblin);
+                break;
+            case 2:
+                // player.battle(blueGoblin);
+        }
+    }
+
+    private static void secondRandomBattle(){
+        Random random = new Random();
+        Enemy redOrc = new Enemy(2, 5, 2, 15, "Red Orc");
+        Enemy BlueOrc = new Enemy(2, 5, 2, 15, "blue Orc");
+
+        int randomEnemyChoice = random.nextInt(3);
+
+        switch (randomEnemyChoice) {
+            case 0:
+                // player.battle(redOrc);
+                break;
+            case 1:
+                // player.battle(blueOrc);
+                break;
+            case 2:
+        }
+    }
+    private static void thirdRandomBattle(){
+        Enemy redDragon = new Enemy(10, 10, 10, 30, "Red Dragon");
     }
 }

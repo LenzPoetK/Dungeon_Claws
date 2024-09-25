@@ -7,6 +7,7 @@ public class Player {
     private String name;  
     private int maxHP;
     private int hp;
+    private int maxhp;
     private int constuition;
     private int strength;
     private int agility;
@@ -185,6 +186,7 @@ public class Player {
     }
 
     public void setHp(int hp) {
+        this.hp = hp;
         this.hp = hp;
     }
 
