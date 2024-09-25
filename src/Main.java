@@ -41,6 +41,7 @@ public class Main {
             ClearConsole.clear();
             System.out.println("> Play (P)");
             System.out.println("> Credits (C)");
+            System.out.println("> Introduction (I)");
             System.out.println("> Exit (E)\n");
             System.out.print("Chose one option: ");
             option = Character.toUpperCase(scanner.nextLine().charAt(0));
@@ -222,6 +223,7 @@ public class Main {
                         }
                     }    
 
+                    teachingUsePotion:
                     while(true){
                         ClearConsole.clear();
                         System.out.print(Sprites.girasTheMage);
@@ -257,7 +259,7 @@ public class Main {
                         switch(inGameOption){
                             case 'P' -> {
                                 player.usePotion();
-                                break GAME;
+                                break teachingUsePotion;
                             }
                             default -> {
                                 ClearConsole.clear();
@@ -272,8 +274,201 @@ public class Main {
                         
                     }
 
+                    System.out.println("Die, now.");
+                    player.battle(girasTheMage);
+                    
+                    ClearConsole.clear();
+                    System.out.println("The strange and glitterry figure vanishes before your eyes, without leaving a trace");
+                    System.out.println("now surrounded by trees, a vast scenery unfolds in front of you, full of color and life");
+                    System.out.println("'is this still just my own mind?' you ponder. But whatever this is, beats absolute nothing.");
+                    scanner.nextLine();
+            
+                    ClearConsole.clear();
+                    System.out.print(Sprites.castle);
+                    System.out.println("From afar, you can make the silhouette of a eerie castle");
+                    System.out.println("You entered this place out of desperation, but now all you seek");
+                    System.out.println("is a way out of this nightmare, and you will do whatever it takes");
+                    System.out.println("as you approach the rocky foundation, a group of creatures surrounds you!");
+                    System.out.println("\nThe bigger of them says:");
+                    System.out.println("   Ggive usSsS alll yoOuu Havve, OrRR DieEE!");
+                    System.out.println("\n you grip your weapon tight, that's not gonna happen without a fight.");
+                    scanner.nextLine();
+            
+            
+                    firstRandomBattle(player);
+            
+                    ClearConsole.clear();
+                    System.out.println("You manage to defeat the fowl creature, and the others scatter as you do");
+                    System.out.println("They leave many items behind, most of them quite useles, but some...");
+                    System.out.println("A scary big axe that you doubt any of the little devils could even raise");
+                    System.out.println("The shiniest thing you've ever seen in this scary place, the Sword of legends");
+                    System.out.println("Lighter than even your clothes, a blade akin to a dagger, but a LOT deadlier.");
+                    scanner.nextLine();
+            
+                    weaponCategorySelection:
+                    while(true){
+                        char weaponOption2;
+                        ClearConsole.clear();
+            
+                        System.out.println("--------------------------------\n");
+                        System.out.println("> Battle axe (B):");
+                        System.out.println("  * Base damage: 12");
+                        System.out.println("  * scales with Strength\n");
+            
+                        System.out.println("> Excalibur (E):");
+                        System.out.println("  * Base damage: 15");
+                        System.out.println("  * scales with Strength\n");
+            
+                        System.out.println("> Dirk (D):");
+                        System.out.println("  * Base damage: 15");
+                        System.out.println("  * scales with Dexterity\n");
+            
+                        System.out.println("--------------------------------\n");
+            
+            
+                        System.out.print("Chose your new weapon: ");
+                        weaponOption2 = Character.toUpperCase(scanner.next().charAt(0));
+                        scanner.nextLine();
+            
+                        switch(weaponOption2){
+                            case 'D' -> {
+                                player.updateWeapon(dirk);
+                                break weaponCategorySelection;
+                            }
+                            case 'E' -> {
+                                player.updateWeapon(excalibur);
+                                break weaponCategorySelection;
+                            }
+                            case 'B' -> {
+                                player.updateWeapon(battleAxe);
+                                break weaponCategorySelection;
+                            }
+                            default -> {
+                                ClearConsole.clear();
+                                System.out.print("Select a valid option.");
+                                scanner.nextLine();
+                            }
+                        }   
+                    }
+                        ClearConsole.clear();
+                        System.out.println("After meticulously examining your options, you sense something...");
+                        System.out.println("Whatever this place is, it seams to change everything within it\n");
+                        System.out.println("And you are NOT an exception...\n");
+                        System.out.println("Even though you feel unsure about it, there's no mistaking it:");
+                        System.out.println("You've gotten stronger after succeding against your enemies.");
+                        scanner.nextLine();
+                
+                        player.levelUp(5);
+                
+                        ClearConsole.clear();
+                
+                        System.out.println("You get closer still to the castle walls, but when you finally ");
+                        System.out.println("Reach the gate leading to it, two Gigantic figures await you");
+                        System.out.println("They seam as strong as they are big, but you dont plan on backing down");
+                        System.out.println("One of them sees you and says in a slow, deep voice:\n");
+                        System.out.println("YOU... NO... ENTER...\n");
+                        System.out.println("The other slaps the first in the back of the head and says, slightly annoyed");
+                        System.out.println("I've told you not to speak with intruders, you dimwit");
+                        System.out.println("Now we have no choice BUT to kill him, at least try to make it quick");
+                        scanner.nextLine();
+                
+                        secondRandomBattle(player);
+                
+                        ClearConsole.clear();
+                
+                        System.out.println("The giant falls to his feet, defeated and speachless");
+                        System.out.println("Whatever their duty was, you've just made it pointless");
+                        System.out.println("Entering the castle, a couple of statues are arranged");
+                        System.out.println("All of them wearing the most prestigious of vests and weapons");
+                        System.out.println("You try to take some swords to properly inspect");
+                        System.out.println("But the statues's grip is too firm, however their armory...");;
+                        scanner.nextLine();
+                
+                        armorCategorySelection:
+                        while(true){
+                            char armorOption;
+                            ClearConsole.clear();
+                
+                            System.out.println("choose an armor.");
+                            System.out.println("--------------------------------\n");
+                            System.out.println("> Reinforced steel plate (R):");
+                            System.out.println("  * Base defense: 6\n");
+                
+                            System.out.println("> Iron plate (I):");
+                            System.out.println("  * Base defense: 5\n");
+                        
+                            System.out.println("> Diamond plate (D):");
+                            System.out.println("  * Base defense: 10\n");
+                            System.out.println("--------------------------------\n");
+                
+                
+                            System.out.print("Chose your armor: ");
+                            armorOption = Character.toUpperCase(scanner.next().charAt(0));
+                            scanner.nextLine();
+                
+                            switch(armorOption){
+                                case 'R' -> {
+                                    player.updateArmor(reinforced_steel);
+                                    break armorCategorySelection;
+                                }
+                                case 'I' -> {
+                                    player.updateArmor(ironPlate);
+                                    break armorCategorySelection;
+                                }
+                                case 'D' -> {
+                                    player.updateArmor(diamondPlate);
+                                    break armorCategorySelection;
+                                }
+                                default -> {
+                                    ClearConsole.clear();
+                                    System.out.print("Select a valid option.");
+                                    scanner.nextLine();
+                                }
+                            }   
+                        }
+                
+                        ClearConsole.clear();
+                
+                        System.out.println("That same feeling dominates you, and you're powerless to stop it");
+                        System.out.println("A powerfull force seems to control your movements and enter your body");
+                        System.out.println("It stops, you cant feel it, its inside now, but you feel something...");
+                        System.out.println("The Muscles, the sharpened reflexes, you've just gotten a LOT stronger");
+                        scanner.nextLine();
+                
+                        player.levelUp(10);
+                
+                        ClearConsole.clear();
+                
+                        System.out.println("After getting used to this newfound power, you go further deep into the castle");
+                        System.out.println("You enter an open area in the middle of the engulfing architecture");
+                        System.out.println("First, you feel relieved from the narrow pathways of the castle, but then you see");
+                        System.out.println("The most terrifying beast of them all, siting right on the center");
+                        System.out.println("Bellow it, a mountain of treasure impossible to calculate, behind it, a door");
+                        System.out.println("'could it be the exit' you think, hopefull that there is a way out");
+                        System.out.println("Either way there's nowhere to go but trough this creature's lair\n");
+                        System.out.println("        The Red Dragon ROARS, as you step into its sight");
+                        scanner.nextLine();
+                
+                        thirdRandomBattle(player);
+                
+                        ClearConsole.clear();
+                
+                        System.out.print(Sprites.dragonSilhouette);
+                        System.out.println("\nThe beast flies away, humiliated by your overwhelming triumph");
+                        System.out.println("Behind the incalculable piles of gold, the great door awaits you");
+                        System.out.println("'please be the exit please be the exit' you put all of your faith on those thoughts as you approach it");
+                        System.out.println("And with each step harder than the last, first you think its the fatigue from all the action");
+                        System.out.println("Soon you realize its the opposite, you feel revigorated, stronger than ever");
+                        System.out.println("You are right in front of the door, and when you reach out your hand to pull it open");
+                        System.out.println("It finally downs on you, the immense weight of all your struggle, its almost impossible to stand");
+                        System.out.println("All that keeps you standing is the strange feeling , now stronger than ever, you understand");
+                        System.out.println("The power you've gained here has made you weak, now even standing up without it is a challange");
+                        System.out.println("Only by staying here would this curse continue to support you, in fact, it would only grow, for as long as you are in\n");
+                        System.out.println("        THE DUNGEONS'S CLAWS\n\n\n");
+                        System.out.println("                GAME OVER");
+                        scanner.nextLine();
                 }
-                case 'H' -> {
+                case 'I' -> {
                     ClearConsole.clear();
                     System.out.println("You are just a usual college kid, trying to get by semester after semester");
                     System.out.println("But one day you feel something calling after you, a darkness that seamed endless");
@@ -297,199 +492,7 @@ public class Main {
                 }
             }
         }
-        ClearConsole.clear();
-        System.out.println("The strange and glitterry figure vanishes before your eyes, without leaving a trace");
-        System.out.println("now surrounded by trees, a vast scenery unfolds in front of you, full of color and life");
-        System.out.println("'is this still just my own mind?' you ponder. But whatever this is, beats absolute nothing");
-        scanner.nextLine();
 
-        ClearConsole.clear();
-        System.out.print(Sprites.castle);
-        System.out.println("From afar, you can make the silhouette of a eerie castle");
-        System.out.println("You entered this place out of desperation, but now all you seek");
-        System.out.println("is a way out of this nightmare, and you will do whatever it takes");
-        System.out.println("as you approach the rocky foundation, a group of creatures surrounds you!");
-        System.out.println("\nThe bigger of them says:");
-        System.out.println("   Ggive usSsS alll yoOuu Havve, OrRR DieEE!");
-        System.out.println("\n you grip your weapon tight, that's not gonna happen without a fight.");
-        scanner.nextLine();
-
-
-        firstRandomBattle(player);
-
-        ClearConsole.clear();
-        System.out.println("You manage to defeat the fowl creature, and the others scatter as you do");
-        System.out.println("They leave many items behind, most of them quite useles, but some...");
-        System.out.println("A scary big axe that you doubt any of the little devils could even raise");
-        System.out.println("The shiniest thing you've ever seen in this scary place, the Sword of legends");
-        System.out.println("Lighter than even your clothes, a blade akin to a dagger, but a LOT deadlier");
-        scanner.nextLine();
-
-        weaponCategorySelection:
-        while(true){
-            char weaponOption;
-            ClearConsole.clear();
-
-            System.out.println("--------------------------------\n");
-            System.out.println("> Battle axe (B):");
-            System.out.println("  * Base damage: 12");
-            System.out.println("  * scales with Strength\n");
-
-            System.out.println("> Excalibur (E):");
-            System.out.println("  * Base damage: 15");
-            System.out.println("  * scales with Strength\n");
-
-            System.out.println("> Dirk (D):");
-            System.out.println("  * Base damage: 15");
-            System.out.println("  * scales with Dexterity\n");
-
-            System.out.println("--------------------------------\n");
-
-
-            System.out.print("Chose your new weapon: ");
-            weaponOption = Character.toUpperCase(scanner.next().charAt(0));
-            scanner.nextLine();
-
-            switch(weaponOption){
-                case 'D' -> {
-                    player.updateWeapon(dirk);
-                    break weaponCategorySelection;
-                }
-                case 'E' -> {
-                    player.updateWeapon(excalibur);
-                    break weaponCategorySelection;
-                }
-                case 'B' -> {
-                    player.updateWeapon(battleAxe);
-                    break weaponCategorySelection;
-                }
-                default -> {
-                    ClearConsole.clear();
-                    System.out.print("Select a valid option.");
-                    scanner.nextLine();
-                }
-            }   
-        }
-
-        ClearConsole.clear();
-        System.out.println("After meticulously examining your options, you sense something...");
-        System.out.println("Whatever this place is, it seams to change everything within it\n");
-        System.out.println("And you are NOT an exception...\n");
-        System.out.println("Even though you feel unsure about it, there's no mistaking it:");
-        System.out.println("You've gotten stronger after succeding against your enemies");
-        scanner.nextLine();
-
-        player.levelUp(5);
-
-        ClearConsole.clear();
-
-        System.out.println("You get closer still to the castle walls, but when you finally ");
-        System.out.println("Reach the gate leading to it, two Gigantic figures await you");
-        System.out.println("They seam as strong as they are big, but you dont plan on backing down");
-        System.out.println("One of them sees you and says in a slow, deep voice:\n");
-        System.out.println("YOU... NO... ENTER...\n");
-        System.out.println("The other slaps the first in the back of the head and says, slightly annoyed");
-        System.out.println("I've told you not to speak with intruders, you dimwit");
-        System.out.println("Now we have no choice BUT to kill him, at least try to make it quick");
-        scanner.nextLine();
-
-        secondRandomBattle(player);
-
-        ClearConsole.clear();
-
-        System.out.println("The giant falls to his feet, defeated and speachless");
-        System.out.println("Whatever their duty was, you've just made it pointless");
-        System.out.println("Entering the castle, a couple of statues are arranged");
-        System.out.println("All of them wearing the most prestigious of vests and weapons");
-        System.out.println("You try to take some swords to properly inspect");
-        System.out.println("But the statues's grip is too firm, however their armory...");;
-        scanner.nextLine();
-
-        armorCategorySelection:
-        while(true){
-            char armorOption;
-            ClearConsole.clear();
-
-            System.out.println("choose an armor.");
-            System.out.println("--------------------------------\n");
-            System.out.println("> Reinforced steel plate (R):");
-            System.out.println("  * Base defense: 6\n");
-
-            System.out.println("> Iron plate (I):");
-            System.out.println("  * Base defense: 5\n");
-        
-            System.out.println("> Diamond plate (D):");
-            System.out.println("  * Base defense: 10\n");
-            System.out.println("--------------------------------\n");
-
-
-            System.out.print("Chose your armor: ");
-            armorOption = Character.toUpperCase(scanner.next().charAt(0));
-            scanner.nextLine();
-
-            switch(armorOption){
-                case 'R' -> {
-                    player.updateArmor(reinforced_steel);
-                    break armorCategorySelection;
-                }
-                case 'I' -> {
-                    player.updateArmor(ironPlate);
-                    break armorCategorySelection;
-                }
-                case 'D' -> {
-                    player.updateArmor(diamondPlate);
-                    break armorCategorySelection;
-                }
-                default -> {
-                    ClearConsole.clear();
-                    System.out.print("Select a valid option.");
-                    scanner.nextLine();
-                }
-            }   
-        }
-
-        ClearConsole.clear();
-
-        System.out.println("That same feeling dominates you, and you're powerless to stop it");
-        System.out.println("A powerfull force seems to control your movements and enter your body");
-        System.out.println("It stops, you cant feel it, its inside now, but you feel something...");
-        System.out.println("The Muscles, the sharpened reflexes, you've just gotten a LOT stronger");
-        scanner.nextLine();
-
-        player.levelUp(10);
-
-        ClearConsole.clear();
-
-        System.out.println("After getting used to this newfound power, you go further deep into the castle");
-        System.out.println("You enter an open area in the middle of the engulfing architecture");
-        System.out.println("First, you feel relieved from the narrow pathways of the castle, but then you see");
-        System.out.println("The most terrifying beast of them all, siting right on the center");
-        System.out.println("Bellow it, a mountain of treasure impossible to calculate, behind it, a door");
-        System.out.println("'could it be the exit' you think, hopefull that there is a way out");
-        System.out.println("Either way there's nowhere to go but trough this creature's lair\n");
-        System.out.println("        The Red Dragon ROARS, as you step into its sight");
-        scanner.nextLine();
-
-        thirdRandomBattle(player);
-
-        ClearConsole.clear();
-
-        System.out.print(Sprites.dragonSilhouette);
-        System.out.println("\nThe beast flies away, humiliated by your overwhelming triumph");
-        System.out.println("Behind the incalculable piles of gold, the great door awaits you");
-        System.out.println("'please be the exit please be the exit' you put all of your faith on those thoughts as you approach it");
-        System.out.println("And with each step harder than the last, first you think its the fatigue from all the action");
-        System.out.println("Soon you realize its the opposite, you feel revigorated, stronger than ever");
-        System.out.println("You are right in front of the door, and when you reach out your hand to pull it open");
-        System.out.println("It finally downs on you, the immense weight of all your struggle, its almost impossible to stand");
-        System.out.println("All that keeps you standing is the strange feeling , now stronger than ever, you understand");
-        System.out.println("The power you've gained here has made you weak, now even standing up without it is a challange");
-        System.out.println("Only by staying here would this curse continue to support you, in fact, it would only grow, for as long as you are in\n");
-        System.out.println("        THE DUNGEONS'S CLAWS\n\n\n");
-        System.out.println("                GAME OVER");
-        scanner.nextLine();
-
-        scanner.close();
     }
 
     private static void firstRandomBattle(Player player) {
@@ -501,14 +504,9 @@ public class Main {
         int randomEnemyChoice = random.nextInt(3);
 
         switch (randomEnemyChoice) {
-            case 0:
-                player.battle(redGoblin);
-                break;
-            case 1:
-                player.battle(greenGoblin);
-                break;
-            case 2:
-                player.battle(blueGoblin);
+            case 0 -> player.battle(redGoblin);
+            case 1 -> player.battle(greenGoblin);
+            case 2 -> player.battle(blueGoblin);
         }
     }
 
@@ -517,16 +515,11 @@ public class Main {
         Enemy redOrc = new Enemy(2, 5, 2, 35, "Red Orc", 2, 5, 2, 2, Sprites.orc);
         Enemy blueOrc = new Enemy(2, 5, 2, 35, "blue Orc", 2, 3, 4, 2, Sprites.orc);
 
-        int randomEnemyChoice = random.nextInt(3);
+        int randomEnemyChoice = random.nextInt(2);
 
         switch (randomEnemyChoice) {
-            case 0:
-                player.battle(redOrc);
-                break;
-            case 1:
-                player.battle(blueOrc);
-                break;
-            case 2:
+            case 0 -> player.battle(redOrc);
+            case 1 -> player.battle(blueOrc);
         }
     }
     private static void thirdRandomBattle(Player player){
@@ -538,7 +531,7 @@ public class Main {
     public static void gameOver() {
         Scanner gameOverScanner = new Scanner(System.in);
         ClearConsole.clear();
-        System.out.println("The Dungeon's Claws got the best of you");
+        System.out.println("The Dungeon's Claws got the best of you...");
         System.out.println("                GAME OVER");
         gameOverScanner.nextLine();
         main(null);

@@ -37,26 +37,29 @@ public class Player {
     }
 
     public void attack(Enemy enemy){
+        Scanner scanner = new Scanner(System.in);
         int weaponDammage = weaponInUse.weaponTotalDammage();
         if (weaponInUse.getCategory().equals("Heavy")){
             //calculate actual dammage
-            int realHeavyDammage = weaponDammage + (int) Math.ceil(1.5*strength) - defense;
+            int realHeavyDammage = weaponDammage + (int) Math.ceil(1.5*strength) - enemy.getDefense();
             realHeavyDammage = realHeavyDammage > 0? realHeavyDammage: 0;
             enemy.setHp(
                 enemy.getHp() - realHeavyDammage
             );
 
-            System.out.println("You dealt " + realHeavyDammage + "dammage!");
+            System.out.println("\nYou dealt " + realHeavyDammage + " dammage!");
+            scanner.nextLine();
         }
         if(weaponInUse.getCategory().equals("Light")){
             //calculate actual dammage
-            int realLightDammage = weaponDammage + (int) Math.ceil(1.5*strength) - defense;
+            int realLightDammage = weaponDammage + (int) Math.ceil(1.5*strength) - enemy.getDefense();
             realLightDammage = realLightDammage > 0? realLightDammage: 0;
             enemy.setHp(
                 enemy.getHp() - realLightDammage
             );
-            System.out.println("You dealt " + realLightDammage + "dammage!");
-
+            
+            System.out.println("\nYou dealt " + realLightDammage + " dammage!");
+            scanner.nextLine();
         }
     }
 
@@ -151,6 +154,7 @@ public class Player {
             Scanner input = new Scanner(System.in);
             
             ClearConsole.clear();
+
             System.out.print("Your HP is full!");
             input.nextLine();
         }
@@ -265,7 +269,6 @@ public class Player {
         {
             setHp(getHp() + getConstuition());
         }
-        return;
     }
 
     private int recievePointsFromPlayer(String attribute, int availablePoints){
@@ -273,11 +276,11 @@ public class Player {
         Scanner pointsFromPlayerScanner = new Scanner(System.in);
 
         while (true){
-            System.out.println("How many points will you add to " + attribute + ": ");
+            System.out.print("How many points will you add to " + attribute + ": ");
             try {
                 pointsToAdd = pointsFromPlayerScanner.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Type a number, please");
+                System.out.print("Type a number, please");
                 pointsToAdd = 0;
                 pointsFromPlayerScanner.nextLine();
             }
