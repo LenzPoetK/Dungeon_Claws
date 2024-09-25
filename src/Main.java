@@ -53,142 +53,24 @@ public class Main {
                     int constuition = 0;
                     int agility = 0;
                     ClearConsole.clear();
-                    System.out.print("Enter your adventurer's name: ");
-                    name = scanner.nextLine();
-
-                    attributeDistribution:
-                    while (true) {
-                        ClearConsole.clear();
-                        System.out.println("Adventurer: " + name + "\n");
-                        System.out.printf("You have %d attribute points to distribute\n", attributePoints);
-                        System.out.println("ATTRIBUTES:");
-                        System.out.println("> Constituition (C): " + constuition);
-                        System.out.println("> Strength (S): " + strength);
-                        System.out.println("> Dexterity (D): " + dexterity);
-                        System.out.println("> Agility (A): " + agility + "\n");
-
-                        if (attributePoints <= 0) {
-                            char confirmOption;
-                            System.out.println("> PROCEED (Y)");
-                            System.out.println("> REDISTRIBUTE POINTS (N)");
-                            System.out.print("Confirm your choices?: ");
-                            confirmOption = Character.toUpperCase(scanner.next().charAt(0));
-                            
-                            switch (confirmOption) {
-                                case 'Y' -> {
-                                    break attributeDistribution;
-                                }
-                                case 'N' -> {
-                                    attributePoints = 15;
-                                    constuition = 0;
-                                    strength = 0;
-                                    dexterity = 0;
-                                    agility = 0;
-                                    continue;
-                                }
-                                default -> {
-                                    System.out.println("Select a valid option.");
-                                    scanner.nextLine();
-                                    continue;
-                                }
-                            }
-                        }
-
-                        System.out.print("Chose an attribute to add points: ");
-                        attributeOption = Character.toUpperCase(scanner.next().charAt(0));
-                        scanner.nextLine();
-
-                        switch (attributeOption) {
-                            case 'C' -> {
-                                int constituitionAdd;
-                                ClearConsole.clear();
-                                System.out.print("Points for constituition: ");
-                                constituitionAdd = scanner.nextInt();
-                                constuition = constituitionAdd >= 0 ? constituitionAdd : constuition;
-                                scanner.nextLine();
-
-                                if(constituitionAdd >= 0){
-                                    attributePoints -= constuition;
-                                }
-                                else {
-                                    ClearConsole.clear();
-                                    System.out.println("You can't remove points. If you want to redistribute, use all your points first.");
-                                    scanner.nextLine();
-                                }
-                            }
-                            case 'A' -> {
-                                int agilityAdd;
-                                ClearConsole.clear();
-                                System.out.print("Points for agility: ");
-                                agilityAdd = scanner.nextInt();
-                                agility = agilityAdd >= 0 ? agilityAdd : agility;
-                                scanner.nextLine();
-                                
-                                if(agilityAdd >= 0){
-                                    attributePoints -= agility;
-                                }
-                                else{
-                                    ClearConsole.clear();
-                                    System.out.print("You can't remove points. If you want to redistribute, use all your points first.");
-                                    scanner.nextLine();
-                                }
-                            }
-                            case 'S' -> {
-                                int strengthAdd;
-                                ClearConsole.clear();
-                                System.out.print("Points for strength: ");
-                                strengthAdd = scanner.nextInt();
-                                strength = strengthAdd >= 0 ? strengthAdd : strength;
-                                scanner.nextLine();
-                                
-                                if(strengthAdd >= 0){
-                                    attributePoints -= strength;
-                                }
-                                else{
-                                    ClearConsole.clear();
-                                    System.out.print("You can't remove points. If you want to redistribute, use all your points first.");
-                                    scanner.nextLine();
-                                }
-                            }
-                            case 'D' -> {
-                                int dexterityAdd;
-                                ClearConsole.clear();
-                                System.out.print("Points for dexterity: ");
-                                dexterityAdd = scanner.nextInt();
-                                dexterity = dexterityAdd >= 0 ? dexterityAdd : dexterity;
-                                scanner.nextLine();
-
-                                if(dexterityAdd >= 0){
-                                    attributePoints -= dexterity;
-                                }
-                                else{
-                                    ClearConsole.clear();
-                                    System.out.println("You can't remove points. If you want to redistribute, use all your points first.");
-                                    scanner.nextLine();
-                                }
-                            }
-                            default -> {
-                                ClearConsole.clear();
-                                System.out.print("Select a valid option.");
-                                scanner.nextLine();
-                            }
+                    while (true){
+                        System.out.print("Enter your adventurer's name: ");
+                        name = scanner.nextLine();
+                        if (name.length() > 0){
+                            player.setName(name);
+                            break;
+                        }else{
+                            player.setName("Guest");
+                            break;
                         }
                     }
+                    
+                    //levelUP is just a attribute distribution for the player
+                    player.levelUp(attributePoints);
+                    
+                    player.showDetails();
                     scanner.nextLine();
                     
-                    //Rolls D6 for defining player HP
-                    hp += random.nextInt(6) + 1;
-                    hp += random.nextInt(6) + 1;
-                    hp += random.nextInt(6) + 1;
-                    hp += constuition;
-                    
-                    player.setAgility(agility);
-                    player.setConstuition(constuition);
-                    player.setMaxHP(hp);
-                    player.setHp(hp);
-                    player.setName(name);
-                    player.setStrength(strength);
-                    player.setDexterity(dexterity);
                     player.updateArmor(bananeira);
                     // player.showDetails();
                     // scanner.nextLine();
