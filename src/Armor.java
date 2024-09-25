@@ -1,3 +1,11 @@
 public class Armor {
-    public int defense;
+    private int defense;
+
+    public Armor(int defense){
+        this.defense = defense;
+    }
+
+    public int getArmor(){
+        return this.defense;
+    }
 }
