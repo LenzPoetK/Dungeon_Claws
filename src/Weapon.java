@@ -9,7 +9,7 @@ public class Weapon {
         setDamage(damage);
     }
 
-    public float weaponTotalDammage(){
+    public int weaponTotalDammage(){
         Random random = new Random();
     
         //Heavy weapond deal 2d6 dammage + 1.5*playerStrength, 

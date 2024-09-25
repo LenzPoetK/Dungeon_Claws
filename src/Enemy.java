@@ -11,8 +11,9 @@ public class Enemy {
     private int defensibility;
     private int curability;
     private boolean isDefending;
+    public String sprite;
 
-    public Enemy(int agility, int damage, int defense, int hp, String name, int potionCount, int aggressivity, int defensibility, int curability) {
+    public Enemy(int agility, int damage, int defense, int hp, String name, int potionCount, int aggressivity, int defensibility, int curability, String sprite) {
         this.agility = agility;
         this.damage = damage;
         this.defense = defense;
@@ -23,6 +24,7 @@ public class Enemy {
         this.aggressivity = aggressivity;
         this.defensibility = defensibility;
         this.curability = curability;
+        this.sprite = sprite;
     }
 
     public int totalSum(){
@@ -95,8 +97,7 @@ public class Enemy {
     }
 
     public void setHp(int hp) {
-        if(hp >= 0)
-            this.hp = hp;
+        this.hp = hp;
     }
 
     public int getDamage() {
@@ -131,7 +132,6 @@ public class Enemy {
     }
 
     public void setAggressivity(int aggressivity) {
-        if(aggressivity >= 0)
             this.aggressivity = aggressivity;
     }
 
@@ -140,7 +140,6 @@ public class Enemy {
     }
 
     public void setDefensibility(int defensibility) {
-        if(defensibility >= 0)
             this.defensibility = defensibility;
     }
 
@@ -149,7 +148,6 @@ public class Enemy {
     }
 
     public void setCurability(int curability) {
-        if(curability >= 0)
             this.curability = curability;
     }
 

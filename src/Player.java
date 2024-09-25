@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 ;
@@ -7,7 +8,6 @@ public class Player {
     private String name;  
     private int maxHP;
     private int hp;
-    private int maxhp;
     private int constuition;
     private int strength;
     private int agility;
@@ -15,7 +15,8 @@ public class Player {
     private int defense;
     private Weapon weaponInUse;
     private Armor armorInUse;
-    public boolean isDefending;
+    private int potionCount;
+    private boolean isDefending;
 
     //PLAYER CONSTRUCTOR
     public Player(String name, int hp, int constuition, int strength, int agility, int dexterity){
@@ -31,20 +32,31 @@ public class Player {
     public void checkDefending(){
         if(this.isDefending == true){
             isDefending = false;
-            setDefense(getDefense()/2);
+            armorDefense();
         }
     }
 
     public void attack(Enemy enemy){
+        int weaponDammage = weaponInUse.weaponTotalDammage();
         if (weaponInUse.getCategory().equals("Heavy")){
+            //calculate actual dammage
+            int realHeavyDammage = weaponDammage + (int) Math.ceil(1.5*strength) - defense;
+            realHeavyDammage = realHeavyDammage > 0? realHeavyDammage: 0;
             enemy.setHp(
-                enemy.getHp() - weaponInUse.getDamage() + (int) Math.ceil(1.5*strength)
+                enemy.getHp() - realHeavyDammage
             );
+
+            System.out.println("You dealt " + realHeavyDammage + "dammage!");
         }
         if(weaponInUse.getCategory().equals("Light")){
+            //calculate actual dammage
+            int realLightDammage = weaponDammage + (int) Math.ceil(1.5*strength) - defense;
+            realLightDammage = realLightDammage > 0? realLightDammage: 0;
             enemy.setHp(
-                enemy.getHp() - weaponInUse.getDamage() + dexterity
+                enemy.getHp() - realLightDammage
             );
+            System.out.println("You dealt " + realLightDammage + "dammage!");
+
         }
     }
 
@@ -54,7 +66,7 @@ public class Player {
     }
 
     public void armorDefense(){
-        setDefense((int) Math.ceil(getCurrentArmor().getArmor()*1.5));
+        setDefense((int) Math.ceil(getCurrentArmor().getArmor() + getConstuition()*1.5));
     }
 
     public void playerTurn(Enemy enemy){
@@ -65,13 +77,14 @@ public class Player {
             ClearConsole.clear();
 
             System.out.println("--------------------------------");
-            System.out.println("You are facing a Giras.\n");
+            System.out.println("You are facing a Foe!\n");
             System.out.println("Name: " + enemy.getName());
             System.out.println("HP: " + enemy.getHp());
-            Sprites.girasTheMage();
+            System.out.print(enemy.sprite);
             System.out.println("--------------------------------");
             
             System.out.println("HP: " + getHp());
+            System.out.println("Potions Left: " + getPotionCount());
             System.out.println("Attack (A) Defense (D) Use potion (P)");
             System.out.print("What do you want to do?: ");
             playerOption = Character.toUpperCase(scanner.next().charAt(0));
@@ -87,8 +100,16 @@ public class Player {
                     break playerTurn;
                 }
                 case 'P' -> {
-                    usePotion();
-                    break playerTurn;
+                    if (potionCount >0) {
+                        usePotion();
+                        potionCount -=1;
+                        break playerTurn;
+                    } else {
+                        ClearConsole.clear();
+                        System.out.println("you are out of potions");
+                        scanner.nextLine();
+                        continue playerTurn; 
+                    }
                 }
                 default -> {
                     System.out.println("Select a valid option.");
@@ -99,6 +120,7 @@ public class Player {
     }
 
     public void battle(Enemy enemy){
+        potionCount = 3;
        while(getHp() > 0 && enemy.getHp() > 0){
             if(agility > enemy.getAgility()){
                 checkDefending();
@@ -113,6 +135,9 @@ public class Player {
 
                 enemy.enemyTurn(this);
                 playerTurn(enemy);
+            }
+            if (getHp() <= 0) {
+                Main.gameOver();
             }
        }
     }
@@ -202,6 +227,7 @@ public class Player {
                 }
             }
         }
+        ClearConsole.clear();
 
         System.out.println("> Name: " + this.name);
         System.out.println("> Constituition: " + this.constuition);
@@ -211,11 +237,10 @@ public class Player {
         System.out.println("\nYes (Y)  No (N), redo\n");
         System.out.print("Are you happy with your choices?: ");
         playerOption = Character.toUpperCase(player_scanner.nextLine().charAt(0));
-        player_scanner.nextLine();
 
         switch (playerOption) {
             case 'Y' -> {
-                return;
+                break;
             }
             case 'N' -> {
                 setAgility(backupAgility);
@@ -240,6 +265,7 @@ public class Player {
         {
             setHp(getHp() + getConstuition());
         }
+        return;
     }
 
     private int recievePointsFromPlayer(String attribute, int availablePoints){
@@ -248,7 +274,13 @@ public class Player {
 
         while (true){
             System.out.println("How many points will you add to " + attribute + ": ");
-            pointsToAdd = pointsFromPlayerScanner.nextInt();
+            try {
+                pointsToAdd = pointsFromPlayerScanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Type a number, please");
+                pointsToAdd = 0;
+                pointsFromPlayerScanner.nextLine();
+            }
             if (pointsToAdd > availablePoints || pointsToAdd < 0) {
                 ClearConsole.clear();
                 System.out.println("You must enter a valid number (no negatives or more than available points).");
@@ -273,6 +305,7 @@ public class Player {
 
     public void updateArmor(Armor newArmor){
         this.armorInUse = newArmor;
+        armorDefense();
     }
 
     public Weapon getCurrentWeapon() {
@@ -303,6 +336,14 @@ public class Player {
 
     public int getHp() {
         return hp;
+    }
+
+    public int getPotionCount() {
+        return potionCount;
+    }
+
+    public void setPotionCount(int potionCount) {
+        this.potionCount = potionCount;
     }
 
     public void setHp(int hp) {
