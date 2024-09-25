@@ -26,6 +26,11 @@ public class Weapon {
         }
     }
 
+    public Weapon(int damage, String category) {
+        this.damage = damage;
+        this.category = category;
+    }
+
     public int getDamage() {
         return damage;
     }
