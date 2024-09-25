@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Player {
@@ -69,6 +70,8 @@ public class Player {
                     setDexterity(getDexterity()+pointsToAdd);
                     break;
             }
+
+            setHp(initialHpCalc(getConstuition()));
         }
 
         System.out.println("Name: " + this.name);
@@ -79,7 +82,7 @@ public class Player {
         System.out.println("\nAre you happy with your choices?");
         System.out.println("(Y)es (N)o, redo");
         player_scanner.nextLine();
-        playerOption = Character.toUpperCase(player_scanner.next().charAt(0));
+        playerOption = Character.toUpperCase(player_scanner.nextLine().charAt(0));
         if (playerOption == 'Y') {
             return;
         }
@@ -115,6 +118,12 @@ public class Player {
             }
         }
         return pointsToAdd;
+    }
+
+    private int initialHpCalc(int constitution){
+        Random random = new Random();
+        //gets random numbers from 0-5 three times, then adds 3 at the end to make it from 1-6
+        return random.nextInt(6) + random.nextInt(6) + random.nextInt(6) + constitution + 3;
     }
 
     

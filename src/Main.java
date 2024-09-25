@@ -56,22 +56,11 @@ public class Main {
                     }
                 }
                 
-
+                //levelUP is just a attribute distribution for the player
                 player.levelUp(attributePoints);
-
-                
-                //Rolls D6 for defining player HP
-                hp += random.nextInt(6) + 1;
-                hp += random.nextInt(6) + 1;
-                hp += random.nextInt(6) + 1;
-                hp += player.getConstuition();
-                player.setHp(hp);
                 
                 player.showDetails();
                 scanner.nextLine();
-
-
-                player.levelUp(5);
             }
             else if(option == 'T'){
                 ClearConsole.clear();

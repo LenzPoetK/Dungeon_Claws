@@ -6,11 +6,11 @@ public class Enemy {
     private int agility;
 
     public Enemy(int agility, int damage, int defense, int hp, String name) {
-        this.agility = agility;
-        this.damage = damage;
-        this.defense = defense;
-        this.hp = hp;
-        this.name = name;
+        setName(name);
+        setAgility(agility);
+        setDamage(damage);
+        setDefense(defense);
+        setHp(hp);
     }
 
     public String getName() {
@@ -27,8 +27,7 @@ public class Enemy {
     }
 
     public void setHp(int hp) {
-        if(hp > 0)
-            this.hp = hp;
+        this.hp = hp;
     }
 
     public int getDamage() {
@@ -56,5 +55,5 @@ public class Enemy {
     }
 
 
-    
+
 }
