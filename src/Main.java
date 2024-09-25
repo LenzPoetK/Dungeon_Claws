@@ -23,10 +23,12 @@ public class Main {
         System.out.print("                                          >> Press enter to continue <<");
         scanner.nextLine();
 
-        Player player = new Player("", 0, 0 , 0, 0, 0);
-        Enemy girasTheMage = new Enemy(0, 0, 0, 0, null, 0);
+        Player player = new Player(null, 0, 0 , 0, 0, 0);
+        Enemy girasTheMage = new Enemy(0, 0, 0, 0, null, 0, 0, 0, 0);
+        Enemy dragon = new Enemy(0, 0, 0, 0, null, 0, 0, 0, 0);
         Weapon dagger = new Weapon("Light", 4);
-        Weapon heavySword = new Weapon("Heavy Sword", 8);
+        Weapon heavySword = new Weapon("Heavy", 8);
+        Armor bananeira = new Armor(2);
         
         GAME:
         while (true) {
@@ -117,7 +119,7 @@ public class Main {
                             case 'A' -> {
                                 int agilityAdd;
                                 ClearConsole.clear();
-                                System.out.print("Points for constituition: ");
+                                System.out.print("Points for agility: ");
                                 agilityAdd = scanner.nextInt();
                                 agility = agilityAdd >= 0 ? agilityAdd : agility;
                                 scanner.nextLine();
@@ -182,10 +184,12 @@ public class Main {
                     
                     player.setAgility(agility);
                     player.setConstuition(constuition);
+                    player.setMaxHP(hp);
                     player.setHp(hp);
                     player.setName(name);
                     player.setStrength(strength);
                     player.setDexterity(dexterity);
+                    player.updateArmor(bananeira);
                     // player.showDetails();
                     // scanner.nextLine();
                     
@@ -195,9 +199,13 @@ public class Main {
                     //Attribute declaration of Giras, THE mage
                     girasTheMage.setName("Giras, THE mage");
                     girasTheMage.setHp(20);
-                    girasTheMage.setDamage(2);
+                    girasTheMage.setMaxHP(girasTheMage.getHp());
+                    girasTheMage.setDamage(3);
                     girasTheMage.setDefense(2);
                     girasTheMage.setAgility(0);
+                    girasTheMage.setAggressivity(5);
+                    girasTheMage.setDefensibility(3);
+                    girasTheMage.setCurability(2);
                     
                     weaponCategorySelection:
                     while(true){
@@ -240,93 +248,102 @@ public class Main {
                         }   
                     }
 
-                    ClearConsole.clear();
-                   Sprites.girasTheMage();
+                //     ClearConsole.clear();
+                //    Sprites.girasTheMage();
 
-                   System.out.println("Now, try to attack me.");
-                   scanner.nextLine();
+                //    System.out.println("Now, try to attack me.");
+                //    scanner.nextLine();
                     
-                    while(girasTheMage.getHp() > 0){
-                        ClearConsole.clear();
+                //     teachingAttack:
+                //     while(girasTheMage.getHp() > 0){
+                //         ClearConsole.clear();
                         
-                        System.out.println("--------------------------------");
-                        System.out.println("You are facing a Giras.\n");
-                        System.out.println("Name: " + girasTheMage.getName());
-                        System.out.println("HP: " + girasTheMage.getHp());
+                //         System.out.println("--------------------------------");
+                //         System.out.println("You are facing a Giras.\n");
+                //         System.out.println("Name: " + girasTheMage.getName());
+                //         System.out.println("HP: " + girasTheMage.getHp());
 
-                        Sprites.girasTheMage();
+                //         Sprites.girasTheMage();
 
-                        System.out.println("--------------------------------");
+                //         System.out.println("--------------------------------");
                         
-                        System.out.println("HP: " + player.getHp());
-                        System.out.println("Attack (A) Defense (D) Use potion (P)");
-                        System.out.print("What do you want to do?: ");
-                        inGameOption = Character.toUpperCase(scanner.next().charAt(0));
-                        scanner.nextLine();
+                //         System.out.println("HP: " + player.getHp());
+                //         System.out.println("Attack (A) Defense (D) Use potion (P)");
+                //         System.out.print("What do you want to do?: ");
+                //         inGameOption = Character.toUpperCase(scanner.next().charAt(0));
+                //         scanner.nextLine();
                         
-                        switch(inGameOption){
-                            case 'A' -> player.attack(girasTheMage);
-                            default -> {
-                                ClearConsole.clear();
+                //         switch(inGameOption){
+                //             case 'A' -> {
+                //                 player.attack(girasTheMage);
+                //                 break teachingAttack;
+                //             }
+                //             default -> {
+                //                 ClearConsole.clear();
 
-                               Sprites.girasTheMage();
+                //                Sprites.girasTheMage();
 
-                                System.out.print("Press \"a\" to attack me!");
-                                scanner.nextLine();
-                                continue;
-                            }
-                        }
+                //                 System.out.print("Press \"a\" to attack me!");
+                //                 scanner.nextLine();
+                //                 continue;
+                //             }
+                //         }
+                //     }    
 
-                        ClearConsole.clear();
-                        Sprites.girasTheMage();
+                //     while(true){
+                //         ClearConsole.clear();
+                //         Sprites.girasTheMage();
 
-                        System.out.print("Now, it\'s my turn.");
-                        scanner.nextLine();
+                //         System.out.print("Now, it's my turn.");
+                //         scanner.nextLine();
 
-                        girasTheMage.attack(player);
+                //         girasTheMage.attack(player);
 
-                        ClearConsole.clear();
+                //         ClearConsole.clear();
                         
-                        System.out.println("--------------------------------");
+                //         System.out.println("--------------------------------");
 
-                        System.out.println("===================================");
-                        System.out.println("|  Giras, THE mage, attacked you! |");
-                        System.out.println("===================================");
+                //         System.out.println("===================================");
+                //         System.out.println("|  Giras, THE mage, attacked you! |");
+                //         System.out.println("===================================");
 
-                        System.out.println("You are facing a Giras.\n");
-                        System.out.println("Name: " + girasTheMage.getName());
-                        System.out.println("HP: " + girasTheMage.getHp());
+                //         System.out.println("You are facing a Giras.\n");
+                //         System.out.println("Name: " + girasTheMage.getName());
+                //         System.out.println("HP: " + girasTheMage.getHp());
 
-                        Sprites.girasTheMage();
+                //         Sprites.girasTheMage();
 
-                        System.out.println("Try to use a potion to recover your life.");
+                //         System.out.println("Try to use a potion to recover your life.");
 
-                        System.out.println("--------------------------------");
+                //         System.out.println("--------------------------------");
                         
-                        System.out.println("HP: " + player.getHp());
-                        System.out.println("Attack (A) Defense (D) Use potion (P)");
-                        System.out.print("What do you want to do?: ");
-                        inGameOption = Character.toUpperCase(scanner.next().charAt(0));
+                //         System.out.println("HP: " + player.getHp());
+                //         System.out.println("Attack (A) Defense (D) Use potion (P)");
+                //         System.out.print("What do you want to do?: ");
+                //         inGameOption = Character.toUpperCase(scanner.next().charAt(0));
                         
-                        switch(inGameOption){
-                            case 'P' -> player.usePotion();
-                            default -> {
-                                ClearConsole.clear();
+                //         switch(inGameOption){
+                //             case 'P' -> player.usePotion();
+                //             default -> {
+                //                 ClearConsole.clear();
 
-                               Sprites.girasTheMage();
+                //                Sprites.girasTheMage();
 
-                                System.out.print("Press \"p\" to use a potion!");
-                                scanner.nextLine();
-                                continue;
-                            }
-                        }
+                //                 System.out.print("Press \"p\" to use a potion!");
+                //                 scanner.nextLine();
+                //                 continue;
+                //             }
+                //         }
+                        
+                //         ClearConsole.clear();
+                //         Sprites.girasTheMage();
 
-                        ClearConsole.clear();
-                        Sprites.girasTheMage();
+                //         System.out.print("Now, it\'s my turn.");
+                        // scanner.nextLine();
+                //     }
 
-                        System.out.print("Now, it\'s my turn.");
-                        scanner.nextLine();
-                    }
+                player.battle(girasTheMage);
+
                 }
                 case 'C' -> {
                     ClearConsole.clear();
